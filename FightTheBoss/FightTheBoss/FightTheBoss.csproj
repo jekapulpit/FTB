@@ -65,9 +65,6 @@
     <Compile Include="Concrete\Protect.cs" />
     <Compile Include="Skeleton\RelayCommand.cs" />
     <Compile Include="Skeleton\Weapon.cs" />
-    <Compile Include="States\Healing.cs" />
-    <Compile Include="States\InFight.cs" />
-    <Compile Include="States\State.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Weapons\BossHand.cs" />
     <Compile Include="Weapons\Bow.cs" />

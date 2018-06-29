@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using FightTheBoss.States;
 
 namespace FightTheBoss.Skeleton
 {
@@ -48,10 +47,8 @@ namespace FightTheBoss.Skeleton
             }
         }
 
-        public HeroStates state;
 
         public Weapon weapon;
-        public State State;
         public Command command;
 
         public abstract void TakeAShield();
@@ -78,10 +75,7 @@ namespace FightTheBoss.Skeleton
             MessageBox.Show(this.Name + " взял в руки " + weapon.Call);
         }
 
-        public void ChangeState()
-        {
-            this.State.Handle(this);
-        }
+       
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
