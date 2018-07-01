@@ -17,7 +17,6 @@ namespace FightTheBoss
 {
     class ViewModel : INotifyPropertyChanged
     {
-
         Fighter selectedFighter;
         public Fighter SelectedFighter
         {

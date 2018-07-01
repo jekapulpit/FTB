@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="Register" Height="450" Width="800">
     <Grid>
-        
+
+        <Canvas Height="350" Width="300">
+            <TextBox Width="250" Height="40" Canvas.Top="30" Canvas.Left="25"  Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <PasswordBox x:Name="PassField" Width="250" Height="40" Canvas.Top="100" Canvas.Left="25"></PasswordBox>
+            <PasswordBox x:Name="PassFieldConfirm" Width="250" Height="40" Canvas.Top="170" Canvas.Left="25"></PasswordBox>
+            <Button Command="{Binding RegisterButton}" CommandParameter="{Binding ElementName=PassField}"  Content="Зарегестрироваться" Width="150" Height="40" Canvas.Bottom="30" Canvas.Left="75"></Button>
+        </Canvas>
+
     </Grid>
 </Window>

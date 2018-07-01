@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,9 @@ namespace FightTheBoss.Skeleton
 {
     abstract class Weapon
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id;
+        public int Id { get; set; }
         public int damage { get; set; }
         public string Call { get; set; }
 

@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuthorisationViewModel.cs" />
     <Compile Include="ChooseYourHero.xaml.cs">
       <DependentUpon>ChooseYourHero.xaml</DependentUpon>
     </Compile>
@@ -70,6 +71,7 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RegisterViewModel.cs" />
     <Compile Include="Skeleton\FighterContext.cs" />
     <Compile Include="Skeleton\Invoker.cs" />
     <Compile Include="Skeleton\User.cs" />

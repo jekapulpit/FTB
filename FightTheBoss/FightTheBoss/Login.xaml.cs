@@ -22,6 +22,7 @@ namespace FightTheBoss
         public Login()
         {
             InitializeComponent();
+            DataContext = new AuthorisationViewModel();
         }
     }
 }

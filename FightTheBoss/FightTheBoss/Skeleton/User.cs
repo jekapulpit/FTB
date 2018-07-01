@@ -12,9 +12,15 @@ namespace FightTheBoss.Skeleton
     class User
     {
         [Key]
-        string Username { get; set; }
-        string Password { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
+        public User() { }
+        public User(string user, string password)
+        {
+            Username = user;
+            Password = password.GetHashCode().ToString();
+        }
         public ICollection<Fighter> Fighters { get; set; }
         public ICollection<Weapon> Weapons { get; set; }
     }
