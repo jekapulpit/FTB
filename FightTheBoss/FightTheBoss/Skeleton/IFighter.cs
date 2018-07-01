@@ -1,73 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace FightTheBoss.Skeleton
 {
     abstract class Fighter
     {
-        public string Name { get; set; }
-        int armor;
-        int health;
 
-        public int Armor
-        {
-            get
-            {
-                return armor;
-            }
-            set
-            {
-                armor = value;
-                OnPropertyChanged("Armor");
-            }
-        }
-        public Fighter(string name)
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id;
+        public string Name { get; set; }
+        public string Race { get; set; }
+        public int Xp { get; set; }
+        public int AbilityPoints { get; set; }
+        public int Armor { get; set; }
+        public int Health { get; set; }
+        public int Lvl { get; set; }
+
+        [ForeignKey("User")]
+        public string Username { get; set; }
+
+
+        public User User { get; set; }
+        public Fighter(string name, string race)
         {
             Name = name;
+            AbilityPoints = 0;
+            Race = race;
+            Xp = 0;
+            Lvl = 1;
             OnPropertyChanged("Name");
-            armor = 1;
-            health = 30;
+            Armor = 1;
+            Health = 30;
         }
-        public int Health
-        {
-            get
-            {
-                return health;
-            }
-            set
-            {
-                health = value;
-                OnPropertyChanged("Health");
-            }
-        }
+        public Fighter() { }
+        
 
 
         public Weapon weapon;
-        public Command command;
 
         public abstract void TakeAShield();
         public abstract void GetHealed();
 
-        public void SetCommand(Command c)
-        {
-            command = c;
-        }
-
-        public void Run()
-        {
-            command.Execute();
-        }
-
-        public void Cancel()
-        {
-            command.Undo();
-        }
 
         public void GetWeapon(Weapon weapon)
         {

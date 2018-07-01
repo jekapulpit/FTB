@@ -11,7 +11,7 @@ namespace FightTheBoss.Concrete
 {
     class Boss : Fighter
     {
-        public Boss(string name) : base("Босс")
+        public Boss(string name, string race) : base("Босс","Босс")
         {
             Armor = 1;
             Health = 100;

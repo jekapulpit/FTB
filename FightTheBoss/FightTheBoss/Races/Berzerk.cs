@@ -9,7 +9,7 @@ namespace FightTheBoss.Races
 {
     class Berzerk : Fighter
     {
-        public Berzerk(string name) : base("Берсерк " + name)
+        public Berzerk(string name, string race) : base(name, "Берсерк")
         {
             Armor = 2;
             Health = 40;

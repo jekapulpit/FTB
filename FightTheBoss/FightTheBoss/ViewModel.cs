@@ -11,7 +11,6 @@ using FightTheBoss.Concrete;
 using FightTheBoss.Races;
 using FightTheBoss.Skeleton;
 using FightTheBoss.Weapons;
-using FightTheBoss.States;
 using System.Windows;
 
 namespace FightTheBoss
@@ -61,7 +60,6 @@ namespace FightTheBoss
             }
         }
 
-        public Fighter Boss = new Boss("Смелов ");
 
 
         public ObservableCollection<Weapon> Weapons { get; set; }
@@ -92,9 +90,7 @@ namespace FightTheBoss
                 return _ChooseWeapon ??
                     (_ChooseWeapon = new RelayCommand(obj =>
                     {
-                        Weapon N = obj as Weapon;
-                        SelectedFighter.GetWeapon(N);
-                        Log.Add("Игроку " + SelectedFighter.Name + " было выдано оружие " + N.Call);
+                        
                     }
                     ));
             }
@@ -109,64 +105,6 @@ namespace FightTheBoss
                 return _Attack ??
                     (_Attack = new RelayCommand(obj =>
                     {
-                        Fighter goal = obj as Fighter;
-                        try
-                        {
-                            SelectedFighter.SetCommand(new Attack(SelectedFighter.weapon, goal));
-                            SelectedFighter.Run();
-                            int dam = (SelectedFighter.weapon.damage - goal.Armor);
-                            if (dam < 0) dam = 0;
-                            Log.Add("Игрок " + SelectedFighter.Name + " Атаковал " + goal.Name + " (-" + dam + ")");
-
-                            Goals.Remove(goal);
-                            if (goal != Boss)
-                                Goals.Insert(1, goal);
-                            else
-                                Goals.Insert(0, goal);
-                            SelectedGoal = goal;
-
-                            if(goal.Health <= 0 && goal != Boss)
-                            {
-                                Log.Add("Игрок " + goal.Name + " был убит");
-                                Goals.Remove(goal);
-                                Fighters.Remove(goal);
-                            }
-                            else if(goal.Health <= 0 && goal == Boss)
-                            {
-                                Log.Add("Босс был убит! Игроки победили босса!");
-                                Goals.Remove(goal);
-
-
-                            }
-                            else
-                            {
-                                int n = Fighters.Count;
-                                for (int i = 0; i < n; i++)
-                                {
-                                    Fighter T = Fighters[n - 1];
-                                    Boss.SetCommand(new Attack(Boss.weapon, T));
-                                    Boss.Run();
-                                    dam = (Boss.weapon.damage - T.Armor);
-                                    if (dam < 0) dam = 0;
-                                    Log.Add("Босс атаковал игрока " + T.Name + " (-" + dam + ")");
-                                    Fighters.Remove(T);
-                                    Fighters.Insert(0, T);
-                                    Goals.Remove(T);
-                                    Goals.Add(T);
-                                    if (T.Health <= 0 && T != Boss)
-                                    {
-                                        Log.Add("Игрок " + T.Name + " был убит");
-                                        Goals.Remove(T);
-                                        Fighters.Remove(T);
-                                    }
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Выберите оружие!");
-                        }
-                       
 
                     }
                     ));
@@ -182,47 +120,7 @@ namespace FightTheBoss
                 return _Heal ??
                     (_Heal = new RelayCommand(obj =>
                     {
-                        try
-                        {
-                        Fighter goal = obj as Fighter;
-                       
-                            SelectedFighter.SetCommand(new Heal(goal));
-                            int beg = goal.Health;  
-                            SelectedFighter.Run();
-                            int dam = goal.Health - beg;
-                            
-                            Log.Add("Игрок " + SelectedFighter.Name + " вылечил " + goal.Name + " (+" + dam + ")");
-                            Goals.Remove(goal);
-                            if (goal != Boss)
-                                Goals.Insert(1, goal);
-                            else
-                                Goals.Insert(0, goal);
-                            SelectedGoal = goal;
-                            int n = Fighters.Count;
-                            for (int i = 0; i < n; i++)
-                            {
-                                Fighter T = Fighters[n - 1];
-                                Boss.SetCommand(new Attack(Boss.weapon, T));
-                                Boss.Run();
-                                dam = (Boss.weapon.damage - T.Armor);
-                                if (dam < 0) dam = 0;
-                                Log.Add("Босс атаковал игрока " + T.Name + " (-" + dam + ")");
-                                Fighters.Remove(T);
-                                Fighters.Insert(0, T);
-                                Goals.Remove(T);
-                                Goals.Add(T);
-                                if (T.Health <= 0 && T != Boss)
-                                {
-                                    Log.Add("Игрок " + T.Name + " был убит");
-                                    Goals.Remove(T);
-                                    Fighters.Remove(T);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Выберите цель!");
-                        }
+                        
                     }
                     ));
             }
@@ -238,45 +136,6 @@ namespace FightTheBoss
                     (_GetShield = new RelayCommand(obj =>
                     {
                        
-                        try
-                        {
-                            Fighter sel = selectedFighter;
-                            SelectedFighter.SetCommand(new Protect(SelectedFighter));
-                            SelectedFighter.Run();
-                            if (sel is Berzerk) throw new Exception();
-                            Log.Add("Игрок " + SelectedFighter.Name + " укрепился ");
-                            Goals.Remove(sel);
-                            Goals.Insert(0, sel);
-                            Fighters.Remove(sel);
-                            Fighters.Insert(0, sel);
-                            SelectedFighter = sel;
-                            SelectedGoal = Boss;
-                            int n = Fighters.Count;
-                            int dam;
-                            for (int i = 0; i < n; i++)
-                            {
-                                Fighter T = Fighters[n - 1];
-                                Boss.SetCommand(new Attack(Boss.weapon, T));
-                                Boss.Run();
-                                dam = (Boss.weapon.damage - T.Armor);
-                                if (dam < 0) dam = 0;
-                                Log.Add("Босс атаковал игрока " + T.Name + " (-" + dam + ")");
-                                Fighters.Remove(T);
-                                Fighters.Insert(0, T);
-                                Goals.Remove(T);
-                                Goals.Add(T);
-                                if (T.Health <= 0 && T != Boss)
-                                {
-                                    Log.Add("Игрок " + T.Name + " был убит");
-                                    Goals.Remove(T);
-                                    Fighters.Remove(T);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                           
-                        }
                     }
                     ));
             }
@@ -293,18 +152,7 @@ namespace FightTheBoss
                 new Granate(),
                 new Knife() 
             };
-            Fighters = new ObservableCollection<Fighter>()
-            {
-                new Berzerk("Стиви"),
-                new Elph("Джон"),
-                new Ghoblin("Жека")
-            };
-            Goals = new ObservableCollection<Fighter>();
-            Goals.Add(Boss);
-            foreach (Fighter T in Fighters)
-                Goals.Add(T);
-           
-            Boss.weapon = new BossHand();
+          
 
         }
 

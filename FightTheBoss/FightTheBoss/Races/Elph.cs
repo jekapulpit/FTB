@@ -9,7 +9,8 @@ namespace FightTheBoss.Races
 {
     class Elph:Fighter
     {
-        public Elph(string name) : base("Эльф " + name)
+        public Elph(string name, string race) : base(name, "Эльф")
+
         {
             Armor = 1;
             Health = 25;
