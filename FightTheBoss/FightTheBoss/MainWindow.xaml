@@ -7,98 +7,55 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <ListBox Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Fighters}" SelectedItem="{Binding SelectedFighter}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="100"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Имя: "></TextBlock>
-                            <TextBlock Text="{Binding Path=Name}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Здоровье: "></TextBlock>
-                            <TextBlock Text="{Binding Path=Health}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Броня: "></TextBlock>
-                            <TextBlock Text="{Binding Path=Armor}"></TextBlock>
-                        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Canvas x:Name="Herous"  Grid.Column="1">
+            <TextBlock Padding="15" TextAlignment="Center" Text="Список Ваших персонажей" Height="60" Canvas.Top="0" Canvas.Left="0" Width="{Binding ElementName=Herous
+                                                    , Path=ActualWidth}" FontFamily="Book Antiqua" FontSize="22"/>
+            <ListBox ItemsSource="{Binding Fighters}" SelectedItem="{Binding SelectedFighter}" Canvas.Top="60"  Width="{Binding ElementName=Herous, Path=ActualWidth}" BorderBrush="{x:Null}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Margin="5" Text="{Binding Path=Race}"></TextBlock>
+                            <TextBlock Margin="5" Text="{Binding Path=Name}"></TextBlock>
+                            </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Canvas>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Padding="15" TextAlignment="Center" Text="{Binding SelectedFighter.Name}" Height="60" FontFamily="Book Antiqua" FontSize="22"/>
+            
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Раса: "></TextBlock>
+                        <TextBlock Text="{Binding SelectedFighter.Race}"></TextBlock>
                     </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Уровень: "></TextBlock>
+                        <TextBlock Text="{Binding SelectedFighter.Lvl}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
 
-        <ListBox  Grid.Row="2"  ItemsSource="{Binding Goals}" SelectedItem="{Binding SelectedGoal}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="100"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Имя: "></TextBlock>
-                                <TextBlock Text="{Binding Path=Name}"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Здоровье: "></TextBlock>
-                                <TextBlock Text="{Binding Path=Health}"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Броня: "></TextBlock>
-                                <TextBlock Text="{Binding Path=Armor}"></TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        <StackPanel Width="150" Grid.Row="1" Grid.Column="1">
-            <ListBox Width="150" Height="150" ItemsSource="{Binding Weapons}" SelectedItem="{Binding SelectedWeapon}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Path=Call}"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Урон: "></TextBlock>
-                                <TextBlock Text="{Binding Path=damage}"></TextBlock>
-                            </StackPanel>
-                            
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Command="{Binding ChooseWeapon}" CommandParameter="{Binding SelectedWeapon}" Width="100" Height="50" Content="Выбрать оружие"></Button>
 
-        </StackPanel>
-
-        <StackPanel Margin="10" Grid.Row="1" Width="150" HorizontalAlignment="Left">
-            <Button Margin="10" Command="{Binding Attack}" CommandParameter="{Binding SelectedGoal}" Width="100" Height="20" Content="Атаковать цель"></Button>
-            <Button Margin="10" Command="{Binding Heal}" CommandParameter="{Binding SelectedGoal}" Width="100" Height="20" Content="Вылечить цель"></Button>
-            <Button Margin="10" Command="{Binding GetShield}" CommandParameter="{Binding SelectedFighter}" Width="100" Height="20" Content="Укрепиться"></Button>
-
-        </StackPanel>
+            </Grid>
+        
+        </Grid>
         
 
-        <ListBox ItemsSource="{Binding Log, UpdateSourceTrigger=PropertyChanged}" x:Name="Log" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Right"></ListBox>
     </Grid>
 </Window>

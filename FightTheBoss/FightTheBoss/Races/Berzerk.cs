@@ -14,6 +14,7 @@ namespace FightTheBoss.Races
             Armor = 2;
             Health = 40;
         }
+        public Berzerk() { }
         public override void TakeAShield()
         {
             MessageBox.Show("Берсерк не может взять щит! Он же Дебил!");

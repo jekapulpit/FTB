@@ -15,6 +15,8 @@ namespace FightTheBoss.Races
             Armor = 3;
             Health = 20;
         }
+        public Ghoblin() { }
+
         public override void TakeAShield()
         {
             Armor = 10;

@@ -64,7 +64,6 @@ namespace FightTheBoss
         public ObservableCollection<Weapon> Weapons { get; set; }
         public ObservableCollection<Fighter> Fighters { get; set; }
         public ObservableCollection<Fighter> Goals { get; set; }
-        public ObservableCollection<string> Log { get; set; }
 
         private RelayCommand _AddHero;
         public RelayCommand AddHero
@@ -143,7 +142,22 @@ namespace FightTheBoss
 
         public ViewModel()
         {
-            Log = new ObservableCollection<string>();
+            Fighters = new ObservableCollection<Fighter>();
+
+            try
+            {
+                using (FighterContext T = new FighterContext())
+                {
+                    foreach(Fighter fighter in T.Fighters)
+                    {
+                        Fighters.Add(fighter);
+                    }
+                }
+            }
+            catch(Exception Ex)
+            {
+                MessageBox.Show(Ex.ToString());
+            }
             Weapons = new ObservableCollection<Weapon>()
             {
                 new Bow(),

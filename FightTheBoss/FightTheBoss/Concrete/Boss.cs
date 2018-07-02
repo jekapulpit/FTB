@@ -16,6 +16,10 @@ namespace FightTheBoss.Concrete
             Armor = 1;
             Health = 100;
         }
+        public Boss()
+        {
+
+        }
         public override void TakeAShield()
         {
             

@@ -15,6 +15,8 @@ namespace FightTheBoss.Races
             Armor = 1;
             Health = 25;
         }
+        public Elph() { }
+
         public override void TakeAShield()
         {
             Armor = 4;
