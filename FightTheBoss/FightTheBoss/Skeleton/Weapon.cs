@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FightTheBoss.Skeleton
 {
-    abstract class Weapon
+    public abstract class Weapon
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

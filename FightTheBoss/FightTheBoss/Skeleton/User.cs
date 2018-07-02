@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FightTheBoss.Skeleton
 {
-    class User
+    public class User
     {
         [Key]
         public string Username { get; set; }

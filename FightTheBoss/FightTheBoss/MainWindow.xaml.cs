@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FightTheBoss.Skeleton;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,12 @@ namespace FightTheBoss
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        public MainWindow(User currentuser)
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            DataContext = new ViewModel(currentuser);
         }
+
     }
 }

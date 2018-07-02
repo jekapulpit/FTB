@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace FightTheBoss.Skeleton
 {
-    abstract class Fighter
+    public abstract class Fighter
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

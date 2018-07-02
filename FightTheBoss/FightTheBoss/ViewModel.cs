@@ -17,6 +17,8 @@ namespace FightTheBoss
 {
     class ViewModel : INotifyPropertyChanged
     {
+        public User CurrentUser { get; set; }
+
         Fighter selectedFighter;
         public Fighter SelectedFighter
         {
@@ -140,18 +142,23 @@ namespace FightTheBoss
 
         }
 
-        public ViewModel()
+        public ViewModel(User currentuser)
         {
+            CurrentUser = currentuser;
             Fighters = new ObservableCollection<Fighter>();
 
             try
             {
                 using (FighterContext T = new FighterContext())
                 {
-                    foreach(Fighter fighter in T.Fighters)
+                    IEnumerable<Fighter> allf = from p in T.Fighters
+                                                where p.Username == CurrentUser.Username
+                                                select p;
+                    foreach(Fighter fighter in allf)
                     {
                         Fighters.Add(fighter);
                     }
+                    T.SaveChanges();
                 }
             }
             catch(Exception Ex)

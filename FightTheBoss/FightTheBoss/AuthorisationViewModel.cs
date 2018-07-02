@@ -14,7 +14,8 @@ namespace FightTheBoss
     class AuthorisationViewModel : INotifyPropertyChanged
     {
         public User CurrentUser { get; set; }
-
+        public MainWindow Profile { get; set; }
+        public Action CloseAction { get; set; }
 
         private string login;
         public string Login
@@ -50,7 +51,11 @@ namespace FightTheBoss
                                 if (CurrentUser.Password != pass.Password.GetHashCode().ToString())
                                     throw new NullReferenceException();
                                 else
-                                    MessageBox.Show(CurrentUser.Username);
+                                {
+                                    Profile = new MainWindow(CurrentUser);
+                                    Profile.Show();
+                                    CloseAction();
+                                }
                             }
                             catch(NullReferenceException)
                             {

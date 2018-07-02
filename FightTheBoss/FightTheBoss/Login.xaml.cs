@@ -22,7 +22,11 @@ namespace FightTheBoss
         public Login()
         {
             InitializeComponent();
-            DataContext = new AuthorisationViewModel();
+            AuthorisationViewModel vm = new AuthorisationViewModel();
+
+            DataContext = vm; 
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
     }
 }

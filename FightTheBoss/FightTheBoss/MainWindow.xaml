@@ -14,7 +14,7 @@
         <Canvas x:Name="Herous"  Grid.Column="1">
             <TextBlock Padding="15" TextAlignment="Center" Text="Список Ваших персонажей" Height="60" Canvas.Top="0" Canvas.Left="0" Width="{Binding ElementName=Herous
                                                     , Path=ActualWidth}" FontFamily="Book Antiqua" FontSize="22"/>
-            <ListBox ItemsSource="{Binding Fighters}" SelectedItem="{Binding SelectedFighter}" Canvas.Top="60"  Width="{Binding ElementName=Herous, Path=ActualWidth}" BorderBrush="{x:Null}">
+            <ListBox ItemsSource="{Binding Fighters}" SelectedItem="{Binding SelectedFighter}" Canvas.Top="60"  Width="{Binding ElementName=Herous, Path=ActualWidth}" Canvas.Bottom="90"  BorderBrush="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
@@ -24,6 +24,10 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <StackPanel Width="{Binding ElementName=Herous, Path=ActualWidth}" Height="30" Canvas.Bottom="30">
+                <Button Command="{Binding AddHero}" Canvas.Bottom="30" Height="30" Width="30"/>
+
+            </StackPanel>
         </Canvas>
 
         <Grid Grid.Column="0">
@@ -50,10 +54,10 @@
                         <TextBlock Text="{Binding SelectedFighter.Lvl}"></TextBlock>
                     </StackPanel>
                 </StackPanel>
-
+                
 
             </Grid>
-        
+            
         </Grid>
         
 
