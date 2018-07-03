@@ -41,8 +41,7 @@ namespace FightTheBoss
             }
         }
 
-
-public User CurrentUser { get; set; }
+        public User CurrentUser { get; set; }
         public AddHero AddHeroWindow { get; set; }
 
         Fighter selectedFighter;
@@ -56,7 +55,8 @@ public User CurrentUser { get; set; }
             {
                 selectedFighter = value;
                 OnPropertyChanged("SelectedFighter");
-                Progress = selectedFighter.Xp.ToString() + "/100";
+                if(selectedFighter != null)
+                    Progress = selectedFighter.Xp.ToString() + "/100";
 
             }
         }
@@ -89,8 +89,6 @@ public User CurrentUser { get; set; }
             }
         }
 
-
-
         public ObservableCollection<Weapon> Weapons { get; set; }
         public ObservableCollection<Fighter> Fighters { get; set; }
         public ObservableCollection<Fighter> Goals { get; set; }
@@ -118,7 +116,6 @@ public User CurrentUser { get; set; }
 
         }
 
-
         private RelayCommand _DeleteHero;
         public RelayCommand DeleteHero
         {
@@ -145,45 +142,6 @@ public User CurrentUser { get; set; }
                     obj => { return SelectedFighter != null; }
                     ));
             }
-
-        }
-
-        public void AddNewHero(object sender, RoutedEventArgs e)
-        {
-            Fighter NewHero = new Ghoblin();
-            string Race = AddHeroWindow.Races.SelectedItem.ToString();
-            try
-            {
-                switch (Race)
-                {
-                    case "Берсерк":
-                        NewHero = new Berzerk(AddHeroWindow.HeroName.Text, "Берсерк");
-                        break;
-                    case "Эльф":
-                        NewHero = new Elph(AddHeroWindow.HeroName.Text, "Эльф");
-                        break;
-                    case "Гном":
-                        NewHero = new Ghoblin(AddHeroWindow.HeroName.Text, "Гоблин");
-                        break;
-                    default: throw new Exception();
-                       
-                }
-                NewHero.Username = CurrentUser.Username;
-                Fighters.Insert(0, NewHero);
-                SelectedFighter = NewHero;
-                using (FighterContext T = new FighterContext())
-                {
-                    T.Fighters.Add(NewHero);
-                    T.SaveChanges();
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            AddHeroWindow.Close();
-           
-
 
         }
 
@@ -247,6 +205,45 @@ public User CurrentUser { get; set; }
 
         }
 
+        public void AddNewHero(object sender, RoutedEventArgs e)
+        {
+            Fighter NewHero = new Ghoblin();
+            string Race = AddHeroWindow.Races.SelectedItem.ToString();
+            try
+            {
+                switch (Race)
+                {
+                    case "Берсерк":
+                        NewHero = new Berzerk(AddHeroWindow.HeroName.Text, "Берсерк");
+                        break;
+                    case "Эльф":
+                        NewHero = new Elph(AddHeroWindow.HeroName.Text, "Эльф");
+                        break;
+                    case "Гоблин":
+                        NewHero = new Ghoblin(AddHeroWindow.HeroName.Text, "Гоблин");
+                        break;
+                    default: throw new Exception();
+
+                }
+                NewHero.Username = CurrentUser.Username;
+                Fighters.Insert(0, NewHero);
+                SelectedFighter = NewHero;
+                using (FighterContext T = new FighterContext())
+                {
+                    T.Fighters.Add(NewHero);
+                    T.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            AddHeroWindow.Close();
+
+
+
+        }
+
         public ViewModel(User currentuser)
         {
             CurrentUser = currentuser;
@@ -262,6 +259,7 @@ public User CurrentUser { get; set; }
                     foreach(Fighter fighter in allf)
                     {
                         Fighters.Add(fighter);
+
                     }
                     T.SaveChanges();
                 }
