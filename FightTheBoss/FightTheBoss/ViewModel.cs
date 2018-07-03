@@ -99,6 +99,36 @@ namespace FightTheBoss
 
         }
 
+
+        private RelayCommand _DeleteHero;
+        public RelayCommand DeleteHero
+        {
+            get
+            {
+                return _DeleteHero ??
+                    (_DeleteHero = new RelayCommand(obj =>
+                    {
+                        MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите удалить персонажа?\nВосстановление прогресса будет невозможно!",
+                                          "Подтверждение",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            using (FighterContext T = new FighterContext())
+                            {
+                                T.Fighters.Remove(T.Fighters.Find(SelectedFighter.Id));
+                                T.SaveChanges();
+                            }
+                            Fighters.Remove(SelectedFighter);
+                            if (Fighters.Count() != 0) SelectedFighter = Fighters[0];
+                        }
+                    },
+                    obj => { return SelectedFighter != null; }
+                    ));
+            }
+
+        }
+
         public void AddNewHero(object sender, RoutedEventArgs e)
         {
             Fighter NewHero = new Ghoblin();
@@ -223,10 +253,7 @@ namespace FightTheBoss
             }
             Weapons = new ObservableCollection<Weapon>()
             {
-                new Bow(),
-                new MiniGun(),
-                new Granate(),
-                new Knife() 
+               
             };
           
 
