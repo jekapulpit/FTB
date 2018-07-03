@@ -1,0 +1,20 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FightTheBoss"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="FightTheBoss.AddHero"
+        mc:Ignorable="d"
+        Title="AddHero" Height="400" Width="300">
+    <Grid>
+        <Canvas Width="200" Height="300">
+            <Button x:Name="AddButton" Content="Добавить" Canvas.Bottom="50" Canvas.Left="50" Height="30" Width="100"/>
+            <Label Canvas.Top="10" Width="70" Canvas.Left="65" Content="Имя героя"/>
+            <TextBox x:Name="HeroName" Canvas.Top="35" Width="100" Canvas.Left="50"/>
+            <Label  Canvas.Top="80" Width="70" Canvas.Left="65" Content="Раса героя"/>
+            <ComboBox x:Name="Races" Canvas.Top="105" Width="100" Canvas.Left="50">
+            </ComboBox>
+        </Canvas>
+    </Grid>
+</Window>

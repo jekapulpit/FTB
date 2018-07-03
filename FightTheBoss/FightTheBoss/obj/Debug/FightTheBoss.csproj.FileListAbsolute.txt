@@ -39,3 +39,5 @@ E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\FightTheBoss.Properties.Resources.res
 E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\FightTheBoss.csproj.GenerateResource.cache
 E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\FightTheBoss.csproj.CoreCompileInputs.cache
 E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\FightTheBoss.csproj.CopyComplete
+E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\AddHero.g.cs
+E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\AddHero.baml

@@ -17,7 +17,16 @@ namespace FightTheBoss
 {
     class ViewModel : INotifyPropertyChanged
     {
+
+        List<string> Races = new List<string>()
+        {
+            "Гоблин",
+            "Берсерк",
+            "Эльф"
+        };
+
         public User CurrentUser { get; set; }
+        public AddHero AddHeroWindow { get; set; }
 
         Fighter selectedFighter;
         public Fighter SelectedFighter
@@ -75,10 +84,57 @@ namespace FightTheBoss
                 return _AddHero ??
                     (_AddHero = new RelayCommand(obj =>
                     {
-                       
+
+                        AddHeroWindow = new AddHero();
+                        AddHeroWindow.AddButton.Click += AddNewHero;
+                        foreach(string race in Races)
+                        {
+                            AddHeroWindow.Races.Items.Add(race);
+                        }
+                        AddHeroWindow.Show();
+
                     }
                     ));
             }
+
+        }
+
+        public void AddNewHero(object sender, RoutedEventArgs e)
+        {
+            Fighter NewHero = new Ghoblin();
+            string Race = AddHeroWindow.Races.SelectedItem.ToString();
+            try
+            {
+                switch (Race)
+                {
+                    case "Берсерк":
+                        NewHero = new Berzerk(AddHeroWindow.HeroName.Text, "Берсерк");
+                        break;
+                    case "Эльф":
+                        NewHero = new Elph(AddHeroWindow.HeroName.Text, "Эльф");
+                        break;
+                    case "Гном":
+                        NewHero = new Ghoblin(AddHeroWindow.HeroName.Text, "Гоблин");
+                        break;
+                    default: throw new Exception();
+                       
+                }
+                NewHero.Username = CurrentUser.Username;
+                Fighters.Insert(0, NewHero);
+                SelectedFighter = NewHero;
+                using (FighterContext T = new FighterContext())
+                {
+                    T.Fighters.Add(NewHero);
+                    T.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            AddHeroWindow.Close();
+           
+
 
         }
 
