@@ -38,7 +38,8 @@
                 <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Padding="15" TextAlignment="Center" Text="{Binding SelectedFighter.Name}" Height="60" FontFamily="Book Antiqua" FontSize="22"/>
-            
+            <ProgressBar Width="250" Height="20" Value ="{Binding SelectedHero.Xp}"  Grid.Row="1" Foreground="#FFB006A8"></ProgressBar>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Text="{Binding Progress}"></TextBlock>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -53,7 +54,7 @@
                         <TextBlock Text="Уровень: "></TextBlock>
                         <TextBlock Text="{Binding SelectedFighter.Lvl}"></TextBlock>
                     </StackPanel>
-                    <Button Command="{Binding DeleteHero}" Height="20" Width="100" Content="Удалить героя" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <Button Command="{Binding DeleteHero}" Height="20" Width="100" Content="Удалить героя" BorderBrush="{x:Null}" Background="{x:Null}" ForceCursor="True"/>
                 </StackPanel>
                 
 

@@ -25,7 +25,24 @@ namespace FightTheBoss
             "Эльф"
         };
 
-        public User CurrentUser { get; set; }
+        string progress;
+
+        public string Progress
+        {
+            get
+            {
+                return progress;
+            }
+            set
+            {
+                progress = value;
+                OnPropertyChanged("Progress");
+
+            }
+        }
+
+
+public User CurrentUser { get; set; }
         public AddHero AddHeroWindow { get; set; }
 
         Fighter selectedFighter;
@@ -39,6 +56,8 @@ namespace FightTheBoss
             {
                 selectedFighter = value;
                 OnPropertyChanged("SelectedFighter");
+                Progress = selectedFighter.Xp.ToString() + "/100";
+
             }
         }
 
