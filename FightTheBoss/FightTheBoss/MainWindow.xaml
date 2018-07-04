@@ -100,13 +100,7 @@
                         
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                <ListBoxItem>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding ChooseWeapon}" CommandParameter="{Binding ElementName=weaponBut}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ListBoxItem>
+               
             </ListBox>
         </Grid>
         
