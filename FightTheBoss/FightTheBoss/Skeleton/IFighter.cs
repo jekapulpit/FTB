@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace FightTheBoss.Skeleton
 {
-    public abstract class Fighter
+    public abstract class Fighter : INotifyPropertyChanged
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -42,10 +42,10 @@ namespace FightTheBoss.Skeleton
             Health = 30;
         }
         public Fighter() { }
-        
 
-
-        public Weapon weapon;
+        [ForeignKey("Weapon")]
+        public int? WeaponId { get; set; }
+        public Weapon Weapon { get; set; }
 
         public abstract void TakeAShield();
         public abstract void GetHealed();
@@ -53,8 +53,8 @@ namespace FightTheBoss.Skeleton
 
         public void GetWeapon(Weapon weapon)
         {
-            this.weapon = weapon;
-            MessageBox.Show(this.Name + " взял в руки " + weapon.Call);
+            this.Weapon = weapon;
+            this.WeaponId = weapon.Id;
         }
 
        

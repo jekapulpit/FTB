@@ -13,6 +13,8 @@ using FightTheBoss.Skeleton;
 using FightTheBoss.Weapons;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace FightTheBoss
 {
@@ -57,8 +59,13 @@ namespace FightTheBoss
                 selectedFighter = value;
                 OnPropertyChanged("SelectedFighter");
 
-                if(selectedFighter != null)
+                if (selectedFighter != null)
+                {
                     Progress = selectedFighter.Xp.ToString() + "/100";
+                    SelectedWeapon = selectedFighter.Weapon;
+                    OnPropertyChanged("SelectedWeapon");
+
+                }
 
             }
         }
@@ -155,21 +162,8 @@ namespace FightTheBoss
                 return _OpenWeaponList ??
                     (_OpenWeaponList = new RelayCommand(obj =>
                     {
-                        using (WeaponContext T = new WeaponContext())
-                        {
-                            Weapons.Clear();
-                            IEnumerable<Weapon> allw = from p in T.Weapons
-                                                       where p.Username == CurrentUser.Username //&&
-                                                       //(p.FighterId == SelectedFighter.FighterId || p.FighterId == null)
-                                                       select p;
-                            foreach (Weapon weapon in allw)
-                            {
-                                Weapons.Add(weapon);
-                            }
-                        }
+     
 
-                        ListBox weaponList = obj as ListBox;
-                        weaponList.Visibility = Visibility.Visible;
                     }
                     ));
             }
@@ -184,12 +178,6 @@ namespace FightTheBoss
                 return _ChooseWeapon ??
                     (_ChooseWeapon = new RelayCommand(obj =>
                     {
-                        MessageBox.Show("asdad");
-
-                        Button weapon = obj as Button;
-                        weapon.Content = SelectedWeapon.Call;
-                        SelectedWeapon.FighterId = SelectedFighter.FighterId;
-                        Weapons.Remove(SelectedWeapon);
 
                     }
                     ));
@@ -299,6 +287,21 @@ namespace FightTheBoss
                         Fighters.Add(fighter);
                     }
                 }
+                using (WeaponContext T = new WeaponContext())
+                {
+                   
+                    Weapons.Clear();
+                    
+                    IEnumerable<Weapon> allw = from p in T.Weapons
+                                               where p.Username == CurrentUser.Username 
+                                               select p;
+                    
+                    foreach (Weapon weapon in allw)
+                    {
+                        Weapons.Add(weapon);
+                       
+                    }
+                }
             }
             catch(Exception Ex)
             {
@@ -307,6 +310,11 @@ namespace FightTheBoss
             
 
         }
+
+       
+
+       
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
