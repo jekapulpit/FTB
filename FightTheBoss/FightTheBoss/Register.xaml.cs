@@ -23,7 +23,8 @@ namespace FightTheBoss
         {
 
             InitializeComponent();
-            DataContext = new RegisterViewModel();
+            RegisterViewModel reg = new RegisterViewModel();
+            DataContext = reg;
         }
     }
 }

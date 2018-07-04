@@ -20,6 +20,10 @@ namespace FightTheBoss.Skeleton
         public string Username { get; set; }
         public User User { get; set; }
 
+        [ForeignKey("Fighter")]
+        public int? FighterId { get; set; }
+        public Fighter Fighter { get; set; }
+
         public Weapon()
         {
             
@@ -27,6 +31,7 @@ namespace FightTheBoss.Skeleton
 
         public Weapon(int damage)
         {
+
             this.damage = damage;
         }
         public abstract void Attackeffect(Fighter Goal);

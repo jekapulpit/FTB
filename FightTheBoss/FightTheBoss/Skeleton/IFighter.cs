@@ -16,7 +16,7 @@ namespace FightTheBoss.Skeleton
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int FighterId { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
         public int Xp { get; set; }

@@ -41,3 +41,11 @@ E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\FightTheBoss.csproj.CoreCompileInputs
 E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\FightTheBoss.csproj.CopyComplete
 E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\AddHero.g.cs
 E:\FTB\FightTheBoss\FightTheBoss\obj\Debug\AddHero.baml
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\Microsoft.Expression.Interactions.dll
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\System.Windows.Interactivity.dll
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\Microsoft.Expression.Interactions.xml
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\System.Windows.Interactivity.xml
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\Microsoft.Windows.Design.Interaction.dll
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\Microsoft.Windows.Design.Extensibility.dll
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\ru\Microsoft.Windows.Design.Interaction.resources.dll
+E:\FTB\FightTheBoss\FightTheBoss\bin\Debug\ru\Microsoft.Windows.Design.Extensibility.resources.dll

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FightTheBoss"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -56,10 +57,57 @@
                     </StackPanel>
                     <Button Command="{Binding DeleteHero}" Height="20" Width="100" Content="Удалить героя" BorderBrush="{x:Null}" Background="{x:Null}" ForceCursor="True"/>
                 </StackPanel>
+                <Canvas Width="190" Height="200" Grid.Column="0">
+                    <Border BorderThickness="1 1 1 1"  Canvas.Top="100" Canvas.Left="120" Height="70" Width="30" BorderBrush="Black">
+
+                        <Button Content="dfsd" x:Name="weaponBut" Command="{Binding OpenWeaponList}" CommandParameter="{Binding ElementName=WeaponList}" Background="{x:Null}" BorderBrush="{x:Null}">
+                            
+                        </Button>
+                    </Border>
+                    <Border BorderThickness="1 1 1 1"  Canvas.Top="130" Canvas.Left="60" Height="40" Width="40" BorderBrush="Black">
+                        <Canvas></Canvas>
+                    </Border>
+                    <Border BorderThickness="1 1 1 1"  Canvas.Top="70" Canvas.Left="50" Height="50" Width="60" BorderBrush="Black">
+                        <Canvas></Canvas>
+                    </Border>
+                    <Border BorderThickness="1 1 1 1"  Canvas.Top="20" Canvas.Left="60" Height="40" Width="40" BorderBrush="Black">
+                        <Canvas></Canvas>
+                    </Border>
+                </Canvas>
                 
 
             </Grid>
-            
+            <ListBox ItemsSource="{Binding Weapons}" SelectedItem="{Binding SelectedWeapon}" x:Name="WeaponList" Width="350" Height="90" Grid.Row="3">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                   
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="90" Height="90">
+                            
+                        </StackPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        
+                            
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                            
+                                <TextBlock Margin="5" Text="{Binding Path=Call}"></TextBlock>
+                                <TextBlock Margin="5" Text="{Binding Path=damage}"></TextBlock>
+                            </StackPanel> 
+                            
+                        
+                        
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBoxItem>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding ChooseWeapon}" CommandParameter="{Binding ElementName=weaponBut}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBoxItem>
+            </ListBox>
         </Grid>
         
 

@@ -12,6 +12,7 @@ using FightTheBoss.Races;
 using FightTheBoss.Skeleton;
 using FightTheBoss.Weapons;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FightTheBoss
 {
@@ -55,6 +56,7 @@ namespace FightTheBoss
             {
                 selectedFighter = value;
                 OnPropertyChanged("SelectedFighter");
+
                 if(selectedFighter != null)
                     Progress = selectedFighter.Xp.ToString() + "/100";
 
@@ -132,7 +134,7 @@ namespace FightTheBoss
                         {
                             using (FighterContext T = new FighterContext())
                             {
-                                T.Fighters.Remove(T.Fighters.Find(SelectedFighter.Id));
+                                T.Fighters.Remove(T.Fighters.Find(SelectedFighter.FighterId));
                                 T.SaveChanges();
                             }
                             Fighters.Remove(SelectedFighter);
@@ -140,6 +142,35 @@ namespace FightTheBoss
                         }
                     },
                     obj => { return SelectedFighter != null; }
+                    ));
+            }
+
+        }
+
+        private RelayCommand _OpenWeaponList;
+        public RelayCommand OpenWeaponList
+        {
+            get
+            {
+                return _OpenWeaponList ??
+                    (_OpenWeaponList = new RelayCommand(obj =>
+                    {
+                        using (WeaponContext T = new WeaponContext())
+                        {
+                            Weapons.Clear();
+                            IEnumerable<Weapon> allw = from p in T.Weapons
+                                                       where p.Username == CurrentUser.Username //&&
+                                                       //(p.FighterId == SelectedFighter.FighterId || p.FighterId == null)
+                                                       select p;
+                            foreach (Weapon weapon in allw)
+                            {
+                                Weapons.Add(weapon);
+                            }
+                        }
+
+                        ListBox weaponList = obj as ListBox;
+                        weaponList.Visibility = Visibility.Visible;
+                    }
                     ));
             }
 
@@ -153,7 +184,13 @@ namespace FightTheBoss
                 return _ChooseWeapon ??
                     (_ChooseWeapon = new RelayCommand(obj =>
                     {
-                        
+                        MessageBox.Show("asdad");
+
+                        Button weapon = obj as Button;
+                        weapon.Content = SelectedWeapon.Call;
+                        SelectedWeapon.FighterId = SelectedFighter.FighterId;
+                        Weapons.Remove(SelectedWeapon);
+
                     }
                     ));
             }
@@ -248,6 +285,7 @@ namespace FightTheBoss
         {
             CurrentUser = currentuser;
             Fighters = new ObservableCollection<Fighter>();
+            Weapons = new ObservableCollection<Weapon>();
 
             try
             {
@@ -259,20 +297,14 @@ namespace FightTheBoss
                     foreach(Fighter fighter in allf)
                     {
                         Fighters.Add(fighter);
-
                     }
-                    T.SaveChanges();
                 }
             }
             catch(Exception Ex)
             {
                 MessageBox.Show(Ex.ToString());
             }
-            Weapons = new ObservableCollection<Weapon>()
-            {
-               
-            };
-          
+            
 
         }
 

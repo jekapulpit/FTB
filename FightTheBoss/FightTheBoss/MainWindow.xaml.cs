@@ -26,6 +26,7 @@ namespace FightTheBoss
         {
             InitializeComponent();
             DataContext = new ViewModel(currentuser);
+            WeaponList.Visibility = Visibility.Hidden;
         }
 
     }
