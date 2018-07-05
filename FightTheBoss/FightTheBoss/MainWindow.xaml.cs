@@ -58,6 +58,12 @@ namespace FightTheBoss
             using (WeaponContext T = new WeaponContext())
             {
                 Weapon ChosenWeapon = T.Weapons.Find(Convert.ToInt32(((Button)sender).Name.Substring(2)));
+                using(FighterContext M = new FighterContext())
+                {
+                    Fighter fighter = M.Fighters.Find(currviewmodel.SelectedFighter.FighterId);
+                    fighter.WeaponId = ChosenWeapon.Id;
+                    M.SaveChanges();
+                }
                 currviewmodel.SelectedFighter.GetWeapon(ChosenWeapon);
                 currviewmodel.SelectedFighter = currviewmodel.SelectedFighter;
                 T.SaveChanges();

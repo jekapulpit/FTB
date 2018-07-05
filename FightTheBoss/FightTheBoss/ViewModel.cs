@@ -62,9 +62,11 @@ namespace FightTheBoss
                 if (selectedFighter != null)
                 {
                     Progress = selectedFighter.Xp.ToString() + "/100";
-                    SelectedWeapon = selectedFighter.Weapon;
+                    using(WeaponContext T = new WeaponContext())
+                    {
+                        SelectedWeapon = T.Weapons.Find(SelectedFighter.WeaponId);
+                    }
                     OnPropertyChanged("SelectedWeapon");
-
                 }
 
             }
