@@ -86,6 +86,9 @@
     <Compile Include="AddHero.xaml.cs">
       <DependentUpon>AddHero.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Armor\BodyArmor.cs" />
+    <Compile Include="Armor\FeetArmor.cs" />
+    <Compile Include="Armor\Helmet.cs" />
     <Compile Include="AuthorisationViewModel.cs" />
     <Compile Include="ChooseYourHero.xaml.cs">
       <DependentUpon>ChooseYourHero.xaml</DependentUpon>
@@ -97,6 +100,7 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegisterViewModel.cs" />
+    <Compile Include="Skeleton\Armor.cs" />
     <Compile Include="Skeleton\FighterContext.cs" />
     <Compile Include="Skeleton\Invoker.cs" />
     <Compile Include="Skeleton\User.cs" />
@@ -187,5 +191,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,32 +10,26 @@ using System.Threading.Tasks;
 
 namespace FightTheBoss.Skeleton
 {
-    public abstract class Weapon : INotifyPropertyChanged
+    abstract class Armor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int damage { get; set; }
+        public int ArmorPoints { get; set; }
         public string Call { get; set; }
         public bool IsWearing { get; set; }
-
 
         [ForeignKey("User")]
         public string Username { get; set; }
         public User User { get; set; }
 
-        
-        public Weapon()
+        public Armor(int armorpoints, string Name)
         {
-            
+            ArmorPoints = armorpoints;
+            Call = Name;
+            IsWearing = false;
         }
-
-        public Weapon(int damage)
-        {
-
-            this.damage = damage;
-        }
-        public abstract void Attackeffect(Fighter Goal);
+        public Armor() { }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
