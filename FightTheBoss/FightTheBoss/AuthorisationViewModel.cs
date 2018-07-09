@@ -1,4 +1,5 @@
 ﻿using FightTheBoss.Skeleton;
+using FightTheBoss.Skeleton.DataBaseContext;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,24 +44,22 @@ namespace FightTheBoss
                     (_LoginButton = new RelayCommand(obj =>
                     {
                         PasswordBox pass = obj as PasswordBox;
-                        using(UserContext T = new UserContext())
+                        try
                         {
-                            try
+                            using (UnitOfWork T = new UnitOfWork())
                             {
-                                CurrentUser = T.Users.Find(Login);
-                                if (CurrentUser.Password != pass.Password.GetHashCode().ToString())
+
+                                CurrentUser = T.GetUsers().FindUser(Login);
+                                if (!(T.GetUsers().Check(CurrentUser.Username, pass.Password.GetHashCode().ToString())))
                                     throw new NullReferenceException();
-                                else
-                                {
-                                    Profile = new MainWindow(CurrentUser);
-                                    Profile.Show();
-                                    CloseAction();
-                                }
                             }
-                            catch(NullReferenceException)
-                            {
-                                MessageBox.Show("Неверное имя пользователя или пароль!");
-                            }
+                            Profile = new MainWindow(CurrentUser);
+                            Profile.Show();
+                            CloseAction();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
                         }
                     }
                     ));

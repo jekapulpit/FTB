@@ -1,5 +1,6 @@
 ﻿using FightTheBoss.ArmorElements;
 using FightTheBoss.Skeleton;
+using FightTheBoss.Skeleton.DataBaseContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,9 @@ namespace FightTheBoss
         {
             WeaponList.Visibility = Visibility.Visible;
             WeaponList.Children.Clear();
-            using(WeaponContext T = new WeaponContext())
+            using(UnitOfWork T = new UnitOfWork())
             {
-                foreach(Weapon weapon in T.Weapons)
+                foreach(Weapon weapon in T.GetWeapons().GetAll(currviewmodel.CurrentUser.Username))
                 {
                     if (!(weapon.IsWearing))
                        WeaponList.Children.Add(SetAWeaponElement(weapon));
@@ -48,9 +49,9 @@ namespace FightTheBoss
         {
             WeaponList.Visibility = Visibility.Visible;
             WeaponList.Children.Clear();
-            using (ArmorContext T = new ArmorContext())
+            using (UnitOfWork T = new UnitOfWork())
             {
-                foreach (FeetArmor helmet in T.FeetArmors)
+                foreach (FeetArmor helmet in T.GetFeetArmor().GetAll(currviewmodel.CurrentUser.Username))
                 {
                     if (!(helmet.IsWearing))
                         WeaponList.Children.Add(SetAArmorElement(helmet));
@@ -61,9 +62,9 @@ namespace FightTheBoss
         {
             WeaponList.Visibility = Visibility.Visible;
             WeaponList.Children.Clear();
-            using (ArmorContext T = new ArmorContext())
+            using (UnitOfWork T = new UnitOfWork())
             {
-                foreach (BodyArmor helmet in T.BodyArmors)
+                foreach (BodyArmor helmet in T.GetBodyArmor().GetAll(currviewmodel.CurrentUser.Username))
                 {
                     if (!(helmet.IsWearing))
                         WeaponList.Children.Add(SetAArmorElement(helmet));
@@ -74,9 +75,9 @@ namespace FightTheBoss
         {
             WeaponList.Visibility = Visibility.Visible;
             WeaponList.Children.Clear();
-            using (ArmorContext T = new ArmorContext())
+            using (UnitOfWork T = new UnitOfWork())
             {
-                foreach (Helmet helmet in T.Helmets)
+                foreach (Helmet helmet in T.GetHelmets().GetAll(currviewmodel.CurrentUser.Username))
                 {
                     if (!(helmet.IsWearing))
                         WeaponList.Children.Add(SetAArmorElement(helmet));
@@ -85,15 +86,7 @@ namespace FightTheBoss
         }
         public void Chooseweapon(object sender, RoutedEventArgs e)
         {
-            using(FighterContext T = new FighterContext())
-            {
-                using (WeaponContext W = new WeaponContext())
-                {
-
-                }
-
-
-            }
+            
             WeaponList.Visibility = Visibility.Hidden;
         }
 

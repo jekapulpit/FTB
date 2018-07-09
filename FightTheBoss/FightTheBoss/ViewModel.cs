@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using FightTheBoss.ArmorElements;
+using FightTheBoss.Skeleton.DataBaseContext;
 
 namespace FightTheBoss
 {
@@ -180,10 +181,9 @@ namespace FightTheBoss
                                           MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
-                            using (FighterContext T = new FighterContext())
+                            using (UnitOfWork T = new UnitOfWork())
                             {
-                                T.Fighters.Remove(T.Fighters.Find(SelectedFighter.FighterId));
-                                T.SaveChanges();
+                                T.GetFighters().Remove(SelectedFighter);
                             }
                             Fighters.Remove(SelectedFighter);
                             if (Fighters.Count() != 0) SelectedFighter = Fighters[0];
@@ -263,10 +263,9 @@ namespace FightTheBoss
                 NewHero.Username = CurrentUser.Username;
                 Fighters.Insert(0, NewHero);
                 SelectedFighter = NewHero;
-                using (FighterContext T = new FighterContext())
+                using (UnitOfWork T = new UnitOfWork())
                 {
-                    T.Fighters.Add(NewHero);
-                    T.SaveChanges();
+                    T.GetFighters().Add(NewHero);
                 }
             }
             catch (Exception ex)
@@ -282,17 +281,10 @@ namespace FightTheBoss
         public ViewModel(User currentuser)
         {
             CurrentUser = currentuser;
-            Fighters = new ObservableCollection<Fighter>();
            
-            using (FighterContext T = new FighterContext())
+            using (UnitOfWork T = new UnitOfWork())
             {
-                IEnumerable<Fighter> allf = from p in T.Fighters
-                                            where p.Username == CurrentUser.Username
-                                            select p;
-                foreach (Fighter fighter in allf)
-                {
-                    Fighters.Add(fighter);
-                }
+                Fighters = T.GetFighters().GetAll(CurrentUser.Username);
             }
 
         }
@@ -301,7 +293,7 @@ namespace FightTheBoss
         {
             try
             {
-                using (WeaponContext T = new WeaponContext())
+                using (UnitOfWork T = new UnitOfWork())
                 {
                     //T.Weapons.Add(new Bow() { Call = "assd", Username = CurrentUser.Username });
                     //T.Weapons.Add(new Bow() { Call = "4len", Username = CurrentUser.Username });
@@ -311,11 +303,13 @@ namespace FightTheBoss
 
                    if(selectedFighter != null)
                     {
-                        SelectedWeapon = T.Weapons.Find(selectedFighter.WeaponId);
+                        SelectedWeapon = T.GetWeapons().Find(selectedFighter.WeaponId);
+                        SelectedHelmet = T.GetHelmets().Find(selectedFighter.HelmetId);
+                        SelectedBodyArmor = T.GetBodyArmor().Find(selectedFighter.BodyArmorId);
+                        SelectedFeetArmor = T.GetFeetArmor().Find(selectedFighter.FeetArmorId);
                     }
                 }
-                using (ArmorContext T = new ArmorContext())
-                {
+               
                     //T.Helmets.Add(new Helmet() { Call = "sosat", Username = CurrentUser.Username });
                     //T.Helmets.Add(new Helmet() { Call = "sosat1", Username = CurrentUser.Username });
                     //T.Helmets.Add(new Helmet() { Call = "sosat2", Username = CurrentUser.Username });
@@ -326,13 +320,6 @@ namespace FightTheBoss
                     //T.FeetArmors.Add(new FeetArmor() { Call = "nog1", Username = CurrentUser.Username });
                     //T.FeetArmors.Add(new FeetArmor() { Call = "nog2", Username = CurrentUser.Username });
                     //T.SaveChanges();
-                    if (selectedFighter != null)
-                    {
-                        SelectedHelmet = T.Helmets.Find(selectedFighter.HelmetId);
-                        SelectedBodyArmor = T.BodyArmors.Find(selectedFighter.BodyArmorId);
-                        SelectedFeetArmor = T.FeetArmors.Find(selectedFighter.FeetArmorId);
-                    }
-                }
             }
             catch (Exception Ex)
             {

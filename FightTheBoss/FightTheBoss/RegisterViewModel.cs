@@ -1,4 +1,5 @@
 ﻿using FightTheBoss.Skeleton;
+using FightTheBoss.Skeleton.DataBaseContext;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,10 +57,9 @@ namespace FightTheBoss
                         User NewUser = new User(Login, pass.Password);
                         try
                         {
-                            using (UserContext T = new UserContext())
+                            using (UnitOfWork T = new UnitOfWork())
                             {
-                                T.Users.Add(NewUser);
-                                T.SaveChanges();
+                                T.GetUsers().Add(NewUser);
                             }
                         }
                         catch(Exception ex)
