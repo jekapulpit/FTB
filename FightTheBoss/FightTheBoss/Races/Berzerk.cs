@@ -11,10 +11,13 @@ namespace FightTheBoss.Races
     {
         public Berzerk(string name, string race) : base(name, "Берсерк")
         {
-            Armor = 2;
+            Armor = 5;
+            BaseArmor = 5;
+
             Health = 40;
         }
-        public Berzerk() { }
+        public Berzerk() {
+        }
         public override void TakeAShield()
         {
             MessageBox.Show("Берсерк не может взять щит! Он же Дебил!");

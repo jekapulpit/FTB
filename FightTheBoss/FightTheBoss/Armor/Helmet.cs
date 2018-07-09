@@ -7,8 +7,11 @@ using FightTheBoss.Skeleton;
 
 namespace FightTheBoss.ArmorElements
 {
-    class Helmet : Armor
+    public class Helmet : Armor
     {
-
+        public Helmet() : base()
+        {
+            type = "Helmet";
+        }
     }
 }

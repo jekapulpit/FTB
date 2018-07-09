@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FightTheBoss.Skeleton
 {
-    abstract class Armor
+    public abstract class Armor : INotifyPropertyChanged
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,6 +22,8 @@ namespace FightTheBoss.Skeleton
         [ForeignKey("User")]
         public string Username { get; set; }
         public User User { get; set; }
+
+        public string type { get; set; }
 
         public Armor(int armorpoints, string Name)
         {

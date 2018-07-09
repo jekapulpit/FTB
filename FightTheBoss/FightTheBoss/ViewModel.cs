@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using FightTheBoss.ArmorElements;
 
 namespace FightTheBoss
 {
@@ -67,6 +68,15 @@ namespace FightTheBoss
                         SelectedWeapon = T.Weapons.Find(SelectedFighter.WeaponId);
                     }
                     OnPropertyChanged("SelectedWeapon");
+                    using(ArmorContext T = new ArmorContext())
+                    {
+                        SelectedHelmet = T.Helmets.Find(SelectedFighter.HelmetId);
+                        SelectedBodyArmor = T.BodyArmors.Find(SelectedFighter.BodyArmorId);
+                        SelectedFeetArmor = T.FeetArmors.Find(SelectedFighter.FeetArmorId);
+                    }
+                    OnPropertyChanged("SelectedHelmet");
+                    OnPropertyChanged("SelectedBodyArmor");
+                    OnPropertyChanged("SelectedFeetArmor");
                 }
 
             }
@@ -100,9 +110,54 @@ namespace FightTheBoss
             }
         }
 
+        Helmet selectedHelmet;
+        public Helmet SelectedHelmet
+        {
+            get
+            {
+                return selectedHelmet;
+            }
+            set
+            {
+                selectedHelmet = value;
+                OnPropertyChanged("SelectedHelmet");
+            }
+        }
+
+        BodyArmor selectedBodyArmor;
+        public BodyArmor SelectedBodyArmor
+        {
+            get
+            {
+                return selectedBodyArmor;
+            }
+            set
+            {
+                selectedBodyArmor = value;
+                OnPropertyChanged("SelectedBodyArmor");
+            }
+        }
+
+        FeetArmor selectedFeetArmor;
+        public FeetArmor SelectedFeetArmor
+        {
+            get
+            {
+                return selectedFeetArmor;
+            }
+            set
+            {
+                selectedFeetArmor = value;
+                OnPropertyChanged("SelectedFeetArmor");
+            }
+        }
+
         public ObservableCollection<Weapon> Weapons { get; set; }
         public ObservableCollection<Fighter> Fighters { get; set; }
         public ObservableCollection<Fighter> Goals { get; set; }
+        public ObservableCollection<Armor> Helmets { get; set; }
+        public ObservableCollection<Armor> BodyArmors { get; set; }
+        public ObservableCollection<Armor> FeetArmors { get; set; }
 
         private RelayCommand _AddHero;
         public RelayCommand AddHero
@@ -156,36 +211,7 @@ namespace FightTheBoss
 
         }
 
-        private RelayCommand _OpenWeaponList;
-        public RelayCommand OpenWeaponList
-        {
-            get
-            {
-                return _OpenWeaponList ??
-                    (_OpenWeaponList = new RelayCommand(obj =>
-                    {
-     
-
-                    }
-                    ));
-            }
-
-        }
-
-        private RelayCommand _ChooseWeapon;
-        public RelayCommand ChooseWeapon
-        {
-            get
-            {
-                return _ChooseWeapon ??
-                    (_ChooseWeapon = new RelayCommand(obj =>
-                    {
-
-                    }
-                    ));
-            }
-
-        }
+       
 
         private RelayCommand _Attack;
         public RelayCommand Attack
@@ -276,7 +302,9 @@ namespace FightTheBoss
             CurrentUser = currentuser;
             Fighters = new ObservableCollection<Fighter>();
             Weapons = new ObservableCollection<Weapon>();
-
+            Helmets = new ObservableCollection<Armor>();
+            BodyArmors = new ObservableCollection<Armor>();
+            FeetArmors = new ObservableCollection<Armor>();
             try
             {
                 using (FighterContext T = new FighterContext())
@@ -291,17 +319,55 @@ namespace FightTheBoss
                 }
                 using (WeaponContext T = new WeaponContext())
                 {
-                   
+                    //T.Weapons.Add(new Bow() { Call = "assd", Username = CurrentUser.Username });
+                    //T.Weapons.Add(new Bow() { Call = "4len", Username = CurrentUser.Username });
+                    //T.Weapons.Add(new MiniGun() { Call = "hehe", Username = CurrentUser.Username });
+                    //T.Weapons.Add(new Bow() { Call = "aga", Username = CurrentUser.Username });
+                    //T.SaveChanges();
                     Weapons.Clear();
-                    
                     IEnumerable<Weapon> allw = from p in T.Weapons
                                                where p.Username == CurrentUser.Username 
                                                select p;
-                    
                     foreach (Weapon weapon in allw)
                     {
                         Weapons.Add(weapon);
-                       
+                    }
+                }
+                using (ArmorContext T = new ArmorContext())
+                {
+                    //T.Helmets.Add(new Helmet() { Call = "sosat", Username = CurrentUser.Username });
+                    //T.Helmets.Add(new Helmet() { Call = "sosat1", Username = CurrentUser.Username });
+                    //T.Helmets.Add(new Helmet() { Call = "sosat2", Username = CurrentUser.Username });
+                    //T.BodyArmors.Add(new BodyArmor() { Call = "Sos", Username = CurrentUser.Username });
+                    //T.BodyArmors.Add(new BodyArmor() { Call = "Sos1", Username = CurrentUser.Username });
+                    //T.BodyArmors.Add(new BodyArmor() { Call = "Sos2", Username = CurrentUser.Username });
+                    //T.FeetArmors.Add(new FeetArmor() { Call = "nog", Username = CurrentUser.Username });
+                    //T.FeetArmors.Add(new FeetArmor() { Call = "nog1", Username = CurrentUser.Username });
+                    //T.FeetArmors.Add(new FeetArmor() { Call = "nog2", Username = CurrentUser.Username });
+                    //T.SaveChanges();
+                    Helmets.Clear();
+                    BodyArmors.Clear();
+                    FeetArmors.Clear();
+                    IEnumerable<Armor> allHelmets = from p in T.Helmets
+                                                    where p.Username == CurrentUser.Username
+                                                    select p;
+                    IEnumerable<Armor> allBodyArmors = from p in T.BodyArmors
+                                                        where p.Username == CurrentUser.Username
+                                                        select p;
+                    IEnumerable<Armor> allFeetArmors = from p in T.FeetArmors
+                                                        where p.Username == CurrentUser.Username
+                                                        select p;
+                    foreach (Armor armor in allHelmets)
+                    {
+                        Helmets.Add(armor);
+                    }
+                    foreach (Armor armor in allBodyArmors)
+                    {
+                        BodyArmors.Add(armor);
+                    }
+                    foreach (Armor armor in allFeetArmors)
+                    {
+                        FeetArmors.Add(armor);
                     }
                 }
             }

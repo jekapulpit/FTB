@@ -13,9 +13,11 @@ namespace FightTheBoss.Races
         public Ghoblin(string name, string Race) : base(name, "Гоблин")
         {
             Armor = 3;
+            BaseArmor = 3;
             Health = 20;
         }
-        public Ghoblin() { }
+        public Ghoblin() {
+        }
 
         public override void TakeAShield()
         {

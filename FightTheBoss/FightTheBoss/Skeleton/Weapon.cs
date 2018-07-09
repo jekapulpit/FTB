@@ -32,7 +32,6 @@ namespace FightTheBoss.Skeleton
 
         public Weapon(int damage)
         {
-
             this.damage = damage;
         }
         public abstract void Attackeffect(Fighter Goal);

@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace FightTheBoss.ArmorElements
 {
-    class BodyArmor : Armor
+    public class BodyArmor : Armor
     {
+        public BodyArmor():base()
+        {
+            type = "BodyArmor";
+        }
     }
 }

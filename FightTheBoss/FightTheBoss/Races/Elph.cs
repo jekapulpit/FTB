@@ -12,10 +12,14 @@ namespace FightTheBoss.Races
         public Elph(string name, string race) : base(name, "Эльф")
 
         {
+            BaseArmor = 2;
+
             Armor = 1;
             Health = 25;
         }
-        public Elph() { }
+        public Elph() {
+
+        }
 
         public override void TakeAShield()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FightTheBoss.ArmorElements;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,8 @@ namespace FightTheBoss.Skeleton
         public int Armor { get; set; }
         public int Health { get; set; }
         public int Lvl { get; set; }
-
+        public int Damage { get; set; }
+        public int BaseArmor { get; set; }
         [ForeignKey("User")]
         public string Username { get; set; }
 
@@ -47,6 +49,18 @@ namespace FightTheBoss.Skeleton
         public int? WeaponId { get; set; }
         public Weapon Weapon { get; set; }
 
+        [ForeignKey("Helmet")]
+        public int? HelmetId { get; set; }
+        public Helmet Helmet { get; set; }
+
+        [ForeignKey("FeetArmor")]
+        public int? FeetArmorId { get; set; }
+        public FeetArmor FeetArmor { get; set; }
+
+        [ForeignKey("BodyArmor")]
+        public int? BodyArmorId { get; set; }
+        public BodyArmor BodyArmor { get; set; }
+
         public abstract void TakeAShield();
         public abstract void GetHealed();
 
@@ -58,6 +72,24 @@ namespace FightTheBoss.Skeleton
         }
 
        
+        public void GetHelmet (Helmet armor)
+        {
+            this.Helmet = armor;
+        }
+        public void GetBodyArmor(BodyArmor armor)
+        {
+            this.BodyArmor = armor;
+        }
+        public void GetFeetArmor(FeetArmor armor)
+        {
+            this.FeetArmor = armor;
+        }
+        public void ThrowArmor(Armor armor)
+        {
+            if(armor != null)
+                this.Armor -= armor.ArmorPoints;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

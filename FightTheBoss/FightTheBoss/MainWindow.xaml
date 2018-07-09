@@ -73,15 +73,12 @@
                             </Button.RenderTransform>
 
                         </Button>
-                    <Border BorderThickness="1 1 1 1"  Canvas.Top="130" Canvas.Left="60" Height="40" Width="40" BorderBrush="Black">
-                        <Canvas></Canvas>
-                    </Border>
-                    <Border BorderThickness="1 1 1 1"  Canvas.Top="70" Canvas.Left="50" Height="50" Width="60" BorderBrush="Black">
-                        <Canvas></Canvas>
-                    </Border>
-                    <Border BorderThickness="1 1 1 1"  Canvas.Top="20" Canvas.Left="60" Height="40" Width="40" BorderBrush="Black">
-                        <Canvas></Canvas>
-                    </Border>
+                    
+                    <Button Canvas.Top="130" Canvas.Left="60" Height="40" Width="40"  Content="{Binding SelectedFeetArmor.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="FeetArmor" Background="{x:Null}" BorderBrush="Black" Click="FeetArmor_Click"/>
+
+                    <Button Background="{x:Null}" Canvas.Top="70" Canvas.Left="50" Height="50" Width="60" BorderBrush="Black" Content="{Binding SelectedBodyArmor.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="BodyArmor" Click="BodyArmor_Click"/>
+
+                    <Button Background="{x:Null}"  Canvas.Top="20" Canvas.Left="60" Height="40" Width="40" BorderBrush="Black" Content="{Binding SelectedHelmet.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="Helmet" Click="Helmet_Click_1"/>
                 </Canvas>
 
 

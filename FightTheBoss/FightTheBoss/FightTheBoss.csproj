@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="RegisterViewModel.cs" />
     <Compile Include="Skeleton\Armor.cs" />
+    <Compile Include="Skeleton\ArmorContext.cs" />
     <Compile Include="Skeleton\FighterContext.cs" />
     <Compile Include="Skeleton\Invoker.cs" />
     <Compile Include="Skeleton\User.cs" />
