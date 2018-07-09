@@ -101,8 +101,14 @@
     </Compile>
     <Compile Include="RegisterViewModel.cs" />
     <Compile Include="Skeleton\Armor.cs" />
-    <Compile Include="Skeleton\ArmorContext.cs" />
-    <Compile Include="Skeleton\FighterContext.cs" />
+    <Compile Include="Skeleton\DataBaseContext\ArmorContext.cs" />
+    <Compile Include="Skeleton\DataBaseContext\ArmorRepository.cs" />
+    <Compile Include="Skeleton\DataBaseContext\BodyArmorRepository.cs" />
+    <Compile Include="Skeleton\DataBaseContext\FeetArmorRepository.cs" />
+    <Compile Include="Skeleton\DataBaseContext\FighterContext.cs" />
+    <Compile Include="Skeleton\DataBaseContext\HelmetRepository.cs" />
+    <Compile Include="Skeleton\DataBaseContext\IRepository.cs" />
+    <Compile Include="Skeleton\DataBaseContext\WeaponRepository.cs" />
     <Compile Include="Skeleton\Invoker.cs" />
     <Compile Include="Skeleton\User.cs" />
     <Compile Include="Races\Berzerk.cs" />
@@ -115,9 +121,9 @@
     <Compile Include="Skeleton\IFighter.cs" />
     <Compile Include="Concrete\Protect.cs" />
     <Compile Include="Skeleton\RelayCommand.cs" />
-    <Compile Include="Skeleton\UserContext.cs" />
+    <Compile Include="Skeleton\DataBaseContext\UserContext.cs" />
     <Compile Include="Skeleton\Weapon.cs" />
-    <Compile Include="Skeleton\Weaponcontext.cs" />
+    <Compile Include="Skeleton\DataBaseContext\Weaponcontext.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Weapons\BossHand.cs" />
     <Compile Include="Weapons\Bow.cs" />

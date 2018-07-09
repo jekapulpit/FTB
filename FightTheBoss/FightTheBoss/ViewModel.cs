@@ -30,7 +30,6 @@ namespace FightTheBoss
         };
 
         string progress;
-
         public string Progress
         {
             get
@@ -46,6 +45,7 @@ namespace FightTheBoss
         }
 
         public User CurrentUser { get; set; }
+
         public AddHero AddHeroWindow { get; set; }
 
         Fighter selectedFighter;
@@ -63,20 +63,7 @@ namespace FightTheBoss
                 if (selectedFighter != null)
                 {
                     Progress = selectedFighter.Xp.ToString() + "/100";
-                    using(WeaponContext T = new WeaponContext())
-                    {
-                        SelectedWeapon = T.Weapons.Find(SelectedFighter.WeaponId);
-                    }
-                    OnPropertyChanged("SelectedWeapon");
-                    using(ArmorContext T = new ArmorContext())
-                    {
-                        SelectedHelmet = T.Helmets.Find(SelectedFighter.HelmetId);
-                        SelectedBodyArmor = T.BodyArmors.Find(SelectedFighter.BodyArmorId);
-                        SelectedFeetArmor = T.FeetArmors.Find(SelectedFighter.FeetArmorId);
-                    }
-                    OnPropertyChanged("SelectedHelmet");
-                    OnPropertyChanged("SelectedBodyArmor");
-                    OnPropertyChanged("SelectedFeetArmor");
+                    UpdateLists();
                 }
 
             }
@@ -152,12 +139,9 @@ namespace FightTheBoss
             }
         }
 
-        public ObservableCollection<Weapon> Weapons { get; set; }
         public ObservableCollection<Fighter> Fighters { get; set; }
         public ObservableCollection<Fighter> Goals { get; set; }
-        public ObservableCollection<Armor> Helmets { get; set; }
-        public ObservableCollection<Armor> BodyArmors { get; set; }
-        public ObservableCollection<Armor> FeetArmors { get; set; }
+       
 
         private RelayCommand _AddHero;
         public RelayCommand AddHero
@@ -210,8 +194,6 @@ namespace FightTheBoss
             }
 
         }
-
-       
 
         private RelayCommand _Attack;
         public RelayCommand Attack
@@ -301,22 +283,24 @@ namespace FightTheBoss
         {
             CurrentUser = currentuser;
             Fighters = new ObservableCollection<Fighter>();
-            Weapons = new ObservableCollection<Weapon>();
-            Helmets = new ObservableCollection<Armor>();
-            BodyArmors = new ObservableCollection<Armor>();
-            FeetArmors = new ObservableCollection<Armor>();
+           
+            using (FighterContext T = new FighterContext())
+            {
+                IEnumerable<Fighter> allf = from p in T.Fighters
+                                            where p.Username == CurrentUser.Username
+                                            select p;
+                foreach (Fighter fighter in allf)
+                {
+                    Fighters.Add(fighter);
+                }
+            }
+
+        }
+
+        public void UpdateLists()
+        {
             try
             {
-                using (FighterContext T = new FighterContext())
-                {
-                    IEnumerable<Fighter> allf = from p in T.Fighters
-                                                where p.Username == CurrentUser.Username
-                                                select p;
-                    foreach(Fighter fighter in allf)
-                    {
-                        Fighters.Add(fighter);
-                    }
-                }
                 using (WeaponContext T = new WeaponContext())
                 {
                     //T.Weapons.Add(new Bow() { Call = "assd", Username = CurrentUser.Username });
@@ -324,13 +308,10 @@ namespace FightTheBoss
                     //T.Weapons.Add(new MiniGun() { Call = "hehe", Username = CurrentUser.Username });
                     //T.Weapons.Add(new Bow() { Call = "aga", Username = CurrentUser.Username });
                     //T.SaveChanges();
-                    Weapons.Clear();
-                    IEnumerable<Weapon> allw = from p in T.Weapons
-                                               where p.Username == CurrentUser.Username 
-                                               select p;
-                    foreach (Weapon weapon in allw)
+
+                   if(selectedFighter != null)
                     {
-                        Weapons.Add(weapon);
+                        SelectedWeapon = T.Weapons.Find(selectedFighter.WeaponId);
                     }
                 }
                 using (ArmorContext T = new ArmorContext())
@@ -345,41 +326,20 @@ namespace FightTheBoss
                     //T.FeetArmors.Add(new FeetArmor() { Call = "nog1", Username = CurrentUser.Username });
                     //T.FeetArmors.Add(new FeetArmor() { Call = "nog2", Username = CurrentUser.Username });
                     //T.SaveChanges();
-                    Helmets.Clear();
-                    BodyArmors.Clear();
-                    FeetArmors.Clear();
-                    IEnumerable<Armor> allHelmets = from p in T.Helmets
-                                                    where p.Username == CurrentUser.Username
-                                                    select p;
-                    IEnumerable<Armor> allBodyArmors = from p in T.BodyArmors
-                                                        where p.Username == CurrentUser.Username
-                                                        select p;
-                    IEnumerable<Armor> allFeetArmors = from p in T.FeetArmors
-                                                        where p.Username == CurrentUser.Username
-                                                        select p;
-                    foreach (Armor armor in allHelmets)
+                    if (selectedFighter != null)
                     {
-                        Helmets.Add(armor);
-                    }
-                    foreach (Armor armor in allBodyArmors)
-                    {
-                        BodyArmors.Add(armor);
-                    }
-                    foreach (Armor armor in allFeetArmors)
-                    {
-                        FeetArmors.Add(armor);
+                        SelectedHelmet = T.Helmets.Find(selectedFighter.HelmetId);
+                        SelectedBodyArmor = T.BodyArmors.Find(selectedFighter.BodyArmorId);
+                        SelectedFeetArmor = T.FeetArmors.Find(selectedFighter.FeetArmorId);
                     }
                 }
             }
-            catch(Exception Ex)
+            catch (Exception Ex)
             {
                 MessageBox.Show(Ex.ToString());
             }
             
-
         }
-
-       
 
        
 
