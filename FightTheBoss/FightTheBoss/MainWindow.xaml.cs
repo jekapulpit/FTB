@@ -94,7 +94,6 @@ namespace FightTheBoss
                 T.GetFighters().Equip(currviewmodel.SelectedFighter, Convert.ToInt32(((Button)sender).Name.Substring(2)));
             }
             currviewmodel.UpdateLists();
-            weaponBut.Content = currviewmodel.SelectedWeapon.Call;
             WeaponList.Visibility = Visibility.Hidden;
         }
 
@@ -107,7 +106,6 @@ namespace FightTheBoss
                 T.GetFighters().TakeOn(currviewmodel.SelectedFighter, T.GetHelmets().Find(Convert.ToInt32(((Button)sender).Name.Substring(2))));
             }
             currviewmodel.UpdateLists();
-            Helmet.Content = currviewmodel.SelectedHelmet.Call;
 
             WeaponList.Visibility = Visibility.Hidden;
         }
@@ -119,7 +117,6 @@ namespace FightTheBoss
                 T.GetFighters().TakeOn(currviewmodel.SelectedFighter, T.GetBodyArmor().Find(Convert.ToInt32(((Button)sender).Name.Substring(2))));
             }
             currviewmodel.UpdateLists();
-            BodyArmor.Content = currviewmodel.SelectedBodyArmor.Call;
 
             WeaponList.Visibility = Visibility.Hidden;
         }
@@ -131,7 +128,6 @@ namespace FightTheBoss
                 T.GetFighters().TakeOn(currviewmodel.SelectedFighter, T.GetFeetArmor().Find(Convert.ToInt32(((Button)sender).Name.Substring(2))));
             }
             currviewmodel.UpdateLists();
-            FeetArmor.Content = currviewmodel.SelectedFeetArmor.Call;
 
             WeaponList.Visibility = Visibility.Hidden;
         }
@@ -139,14 +135,7 @@ namespace FightTheBoss
 
        
 
-        public void showequipment()
-        {
-            FeetArmor.Content = currviewmodel.SelectedFeetArmor.Call;
-            BodyArmor.Content = currviewmodel.SelectedBodyArmor.Call;
-            Helmet.Content = currviewmodel.SelectedHelmet.Call;
-            weaponBut.Content = currviewmodel.SelectedWeapon.Call;
-
-        }
+       
         public Button SetAArmorElement(Armor armor)
         {
             Button ArmorImageBlock = new Button();

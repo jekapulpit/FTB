@@ -45,6 +45,60 @@ namespace FightTheBoss
             }
         }
 
+        string weaponname;
+        public string WeaponName
+        {
+            get
+            {
+                return weaponname;
+            }
+            set
+            {
+                weaponname = value;
+                OnPropertyChanged("WeaponName");
+            }
+        }
+
+        string bodyarmorname;
+        public string BodyArmorName
+        {
+            get
+            {
+                return bodyarmorname;
+            }
+            set
+            {
+                bodyarmorname = value;
+                OnPropertyChanged("BodyArmorName");
+            }
+        }
+        string feetarmorname;
+        public string FeetArmorName
+        {
+            get
+            {
+                return feetarmorname;
+            }
+            set
+            {
+                feetarmorname = value;
+                OnPropertyChanged("FeetArmorName");
+            }
+        }
+        string helmetname;
+        public string HelmetName
+        {
+            get
+            {
+                return helmetname;
+            }
+            set
+            {
+                helmetname = value;
+                OnPropertyChanged("HelmetName");
+            }
+        }
+
         public User CurrentUser { get; set; }
 
         public AddHero AddHeroWindow { get; set; }
@@ -115,13 +169,11 @@ namespace FightTheBoss
             set
             {
                 selectedFighter = value;
-
                 if (selectedFighter != null)
                 {
                     Progress = selectedFighter.Xp.ToString() + "/100";
-                    UpdateLists();
                 }
-                OnPropertyChanged("SelectedFighter");
+                UpdateLists();
 
             }
         }
@@ -302,21 +354,20 @@ namespace FightTheBoss
                     //T.Weapons.Add(new MiniGun() { Call = "hehe", Username = CurrentUser.Username });
                     //T.Weapons.Add(new Bow() { Call = "aga", Username = CurrentUser.Username });
                     //T.SaveChanges();
-
                    if(selectedFighter != null)
                     {
-                        SelectedWeapon = T.GetWeapons().Find(selectedFighter.WeaponId);
-                        SelectedHelmet = T.GetHelmets().Find(selectedFighter.HelmetId);
-                        SelectedBodyArmor = T.GetBodyArmor().Find(selectedFighter.BodyArmorId);
-                        SelectedFeetArmor = T.GetFeetArmor().Find(selectedFighter.FeetArmorId);
-                        SelectedFighter.Weapon = SelectedWeapon;
-                        SelectedFighter.Helmet = SelectedHelmet;
-                        SelectedFighter.BodyArmor = SelectedBodyArmor;
-                        SelectedFighter.FeetArmor = SelectedFeetArmor;
-
+                        selectedFighter = T.GetFighters().Find(selectedFighter.FighterId);
+                        SelectedWeapon = T.GetWeapons().Find(selectedFighter.WeaponId) ?? (SelectedWeapon = new Bow() {Call = ""});
+                        SelectedHelmet = T.GetHelmets().Find(selectedFighter.HelmetId) ?? (SelectedHelmet = new Helmet() { Call = "" }); ;
+                        SelectedBodyArmor = T.GetBodyArmor().Find(selectedFighter.BodyArmorId) ?? (SelectedBodyArmor = new BodyArmor() { Call = "" }); ;
+                        SelectedFeetArmor = T.GetFeetArmor().Find(selectedFighter.FeetArmorId) ?? (SelectedFeetArmor = new FeetArmor() { Call = "" }); ;
+                        HelmetName = SelectedHelmet.Call;
+                        BodyArmorName = SelectedBodyArmor.Call;
+                        FeetArmorName = SelectedFeetArmor.Call;
+                        WeaponName = SelectedWeapon.Call;
+                        OnPropertyChanged("SelectedFighter");
                     }
                 }
-               
                     //T.Helmets.Add(new Helmet() { Call = "sosat", Username = CurrentUser.Username });
                     //T.Helmets.Add(new Helmet() { Call = "sosat1", Username = CurrentUser.Username });
                     //T.Helmets.Add(new Helmet() { Call = "sosat2", Username = CurrentUser.Username });

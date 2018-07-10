@@ -62,7 +62,7 @@
                 </StackPanel>
                 <Canvas Width="190" Height="200" Grid.Column="0">
 
-                    <Button  Canvas.Top="130" Canvas.Left="110" Content="{Binding SelectedWeapon.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="weaponBut" Height="30" Width="70" Background="{x:Null}" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" Click="weaponBut_Click">
+                    <Button  Canvas.Top="130" Canvas.Left="110" Content="{Binding WeaponName, UpdateSourceTrigger=PropertyChanged}" x:Name="weaponBut" Height="30" Width="70" Background="{x:Null}" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" Click="weaponBut_Click">
                             <Button.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -74,11 +74,11 @@
 
                         </Button>
                     
-                    <Button Canvas.Top="130" Canvas.Left="60" Height="40" Width="40"  Content="{Binding SelectedFeetArmor.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="FeetArmor" Background="{x:Null}" BorderBrush="Black" Click="FeetArmor_Click"/>
+                    <Button Canvas.Top="130" Canvas.Left="60" Height="40" Width="40"  Content="{Binding FeetArmorName, UpdateSourceTrigger=PropertyChanged}" x:Name="FeetArmor" Background="{x:Null}" BorderBrush="Black" Click="FeetArmor_Click"/>
 
-                    <Button Background="{x:Null}" Canvas.Top="70" Canvas.Left="50" Height="50" Width="60" BorderBrush="Black" Content="{Binding SelectedBodyArmor.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="BodyArmor" Click="BodyArmor_Click"/>
+                    <Button Background="{x:Null}" Canvas.Top="70" Canvas.Left="50" Height="50" Width="60" BorderBrush="Black" Content="{Binding BodyArmorName, UpdateSourceTrigger=PropertyChanged}" x:Name="BodyArmor" Click="BodyArmor_Click"/>
 
-                    <Button Background="{x:Null}"  Canvas.Top="20" Canvas.Left="60" Height="40" Width="40" BorderBrush="Black" Content="{Binding SelectedHelmet.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="Helmet" Click="Helmet_Click_1"/>
+                    <Button Background="{x:Null}"  Canvas.Top="20" Canvas.Left="60" Height="40" Width="40" BorderBrush="Black" Content="{Binding HelmetName, UpdateSourceTrigger=PropertyChanged}" x:Name="Helmet" Click="Helmet_Click_1"/>
                 </Canvas>
 
 
