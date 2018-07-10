@@ -49,41 +49,6 @@ namespace FightTheBoss
 
         public AddHero AddHeroWindow { get; set; }
 
-        Fighter selectedFighter;
-        public Fighter SelectedFighter
-        {
-            get
-            {
-                return selectedFighter;
-            }
-            set
-            {
-                selectedFighter = value;
-                OnPropertyChanged("SelectedFighter");
-
-                if (selectedFighter != null)
-                {
-                    Progress = selectedFighter.Xp.ToString() + "/100";
-                    UpdateLists();
-                }
-
-            }
-        }
-
-        Fighter selectedGoal;
-        public Fighter SelectedGoal
-        {
-            get
-            {
-                return selectedGoal;
-            }
-            set
-            {
-                selectedGoal = value;
-                OnPropertyChanged("SelectedGoal");
-            }
-        }
-
         Weapon selectedWeapon;
         public Weapon SelectedWeapon
         {
@@ -139,6 +104,43 @@ namespace FightTheBoss
                 OnPropertyChanged("SelectedFeetArmor");
             }
         }
+
+        Fighter selectedFighter;
+        public Fighter SelectedFighter
+        {
+            get
+            {
+                return selectedFighter;
+            }
+            set
+            {
+                selectedFighter = value;
+
+                if (selectedFighter != null)
+                {
+                    Progress = selectedFighter.Xp.ToString() + "/100";
+                    UpdateLists();
+                }
+                OnPropertyChanged("SelectedFighter");
+
+            }
+        }
+
+        Fighter selectedGoal;
+        public Fighter SelectedGoal
+        {
+            get
+            {
+                return selectedGoal;
+            }
+            set
+            {
+                selectedGoal = value;
+                OnPropertyChanged("SelectedGoal");
+            }
+        }
+
+        
 
         public ObservableCollection<Fighter> Fighters { get; set; }
         public ObservableCollection<Fighter> Goals { get; set; }
@@ -307,6 +309,11 @@ namespace FightTheBoss
                         SelectedHelmet = T.GetHelmets().Find(selectedFighter.HelmetId);
                         SelectedBodyArmor = T.GetBodyArmor().Find(selectedFighter.BodyArmorId);
                         SelectedFeetArmor = T.GetFeetArmor().Find(selectedFighter.FeetArmorId);
+                        SelectedFighter.Weapon = SelectedWeapon;
+                        SelectedFighter.Helmet = SelectedHelmet;
+                        SelectedFighter.BodyArmor = SelectedBodyArmor;
+                        SelectedFighter.FeetArmor = SelectedFeetArmor;
+
                     }
                 }
                

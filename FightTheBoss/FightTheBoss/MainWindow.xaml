@@ -62,7 +62,7 @@
                 </StackPanel>
                 <Canvas Width="190" Height="200" Grid.Column="0">
 
-                    <Button  Canvas.Top="130" Canvas.Left="110" Content="{Binding SelectedWeapon.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="weaponBut" Command="{Binding OpenWeaponList}" Height="30" Width="70" CommandParameter="{Binding ElementName=WeaponList}" Background="{x:Null}" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" Click="weaponBut_Click">
+                    <Button  Canvas.Top="130" Canvas.Left="110" Content="{Binding SelectedWeapon.Call, UpdateSourceTrigger=PropertyChanged}" x:Name="weaponBut" Height="30" Width="70" Background="{x:Null}" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" Click="weaponBut_Click">
                             <Button.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
