@@ -83,8 +83,10 @@ namespace FightTheBoss.Skeleton.DataBaseContext
                         {
                             Helmet Helmet = _fight.Helmets.Find(Fighter.HelmetId);
                             Helmet.IsWearing = false;
+                            Fighter.Armor -= Helmet.ArmorPoints;
                         }
                         Fighter.HelmetId = Armor.Id;
+                        Fighter.Armor += Armor.ArmorPoints;
                         Armor.IsWearing = true;
                         break;
                     case ("BodyArmor"):
@@ -93,8 +95,12 @@ namespace FightTheBoss.Skeleton.DataBaseContext
                         {
                             BodyArmor bodyArmor = _fight.BodyArmors.Find(Fighter.BodyArmorId);
                             bodyArmor.IsWearing = false;
+                            Fighter.Armor -= bodyArmor.ArmorPoints;
+
                         }
                         Fighter.BodyArmorId = Armor.Id;
+                        Fighter.Armor += Armor.ArmorPoints;
+
                         Armor.IsWearing = true;
                         break;
                     case ("FeetArmor"):
@@ -103,8 +109,12 @@ namespace FightTheBoss.Skeleton.DataBaseContext
                         {
                             FeetArmor feet = _fight.FeetArmors.Find(Fighter.FeetArmorId);
                             feet.IsWearing = false;
+                            Fighter.Armor -= feet.ArmorPoints;
+
                         }
                         Fighter.FeetArmorId = Armor.Id;
+                        Fighter.Armor += Armor.ArmorPoints;
+
                         Armor.IsWearing = true;
                         break;
                     default: break;

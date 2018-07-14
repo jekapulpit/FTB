@@ -59,6 +59,10 @@
                         <TextBlock Text="Уровень: "></TextBlock>
                         <TextBlock Text="{Binding SelectedFighter.Lvl}"></TextBlock>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Броня: "></TextBlock>
+                        <TextBlock Text="{Binding SelectedFighter.Armor}"></TextBlock>
+                    </StackPanel>
                 </StackPanel>
                 <Canvas Width="190" Height="200" Grid.Column="0">
 
