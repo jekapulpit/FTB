@@ -149,8 +149,36 @@
                             </ToolTip>
                         </Button.ToolTip>
                     </Button>
-                    
-                    
+
+                    <Button Command="{Binding TakeOffWeapon}" Canvas.Top="110" Canvas.Left="130"  Width="10" Height="10" Background="Red" >
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Убрать оружие
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Command="{Binding TakeOffFeetArmor}" Canvas.Top="130" Canvas.Left="60" Width="10" Height="10" Background="Red" >
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Снять ботинки
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Command="{Binding TakeOffBodyArmor}" Canvas.Top="70" Canvas.Left="50" Width="10" Height="10" Background="Red" >
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Снять броню
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Command="{Binding TakeOffHelmet}" Canvas.Top="20" Canvas.Left="60" Width="10" Height="10" Background="Red" >
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Снять шлем
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+
                 </Canvas>
 
 

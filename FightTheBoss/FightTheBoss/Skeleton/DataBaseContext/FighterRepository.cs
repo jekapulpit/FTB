@@ -127,6 +127,67 @@ namespace FightTheBoss.Skeleton.DataBaseContext
             _fight.SaveChanges();
 
         }
+        public void TakeOff(Fighter fighter, Armor armor)
+        {
+            try
+            {
+                Fighter Fighter = _fight.Fighters.Find(fighter.FighterId);
+
+                switch (armor.type)
+                {
+                    case ("Helmet"):
+                        
+                            Helmet Helmet = _fight.Helmets.Find(Fighter.HelmetId);
+                            Helmet.IsWearing = false;
+                            Fighter.Armor -= Helmet.ArmorPoints;
+                            Fighter.HelmetId = null;
+                            
+                        break;
+                    case ("BodyArmor"):
+                        
+                            BodyArmor bodyArmor = _fight.BodyArmors.Find(Fighter.BodyArmorId);
+                            bodyArmor.IsWearing = false;
+                            Fighter.Armor -= bodyArmor.ArmorPoints;
+                            Fighter.BodyArmorId = null;
+
+
+
+                        break;
+                    case ("FeetArmor"):
+                        
+                            FeetArmor feet = _fight.FeetArmors.Find(Fighter.FeetArmorId);
+                            feet.IsWearing = false;
+                            Fighter.Armor -= feet.ArmorPoints;
+                            Fighter.FeetArmorId = null;
+
+
+
+                        break;
+                    default: break;
+                }
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+            _fight.SaveChanges();
+        }
+        public void UnEquip(Fighter fighter, int id)
+        {
+            try
+            {
+                Fighter Fighter = _fight.Fighters.Find(fighter.FighterId);
+                Weapon Weapon1 = _fight.Weapons.Find(Fighter.WeaponId);
+                Weapon1.IsWearing = false;
+                Fighter.WeaponId = null;
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+
+            _fight.SaveChanges();
+        }
         public void Dispose() { }
     }
 }

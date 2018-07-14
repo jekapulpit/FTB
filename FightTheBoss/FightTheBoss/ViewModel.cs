@@ -22,6 +22,7 @@ namespace FightTheBoss
 {
     class ViewModel : INotifyPropertyChanged
     {
+        #region properties
 
         List<string> Races = new List<string>()
         {
@@ -30,20 +31,7 @@ namespace FightTheBoss
             "Эльф"
         };
 
-        int damage; 
-        public int Damage
-        {
-            get
-            {
-                return damage;
-            }
-            set
-            {
-                damage = value;
-                OnPropertyChanged("Damage");
-            }
-        }
-
+        
         string progress;
         public string Progress
         {
@@ -208,12 +196,12 @@ namespace FightTheBoss
             }
         }
 
-        
+        #endregion
 
         public ObservableCollection<Fighter> Fighters { get; set; }
         public ObservableCollection<Fighter> Goals { get; set; }
-       
 
+        #region commands
         private RelayCommand _AddHero;
         public RelayCommand AddHero
         {
@@ -303,12 +291,86 @@ namespace FightTheBoss
                 return _GetShield ??
                     (_GetShield = new RelayCommand(obj =>
                     {
-                       
+
                     }
                     ));
             }
 
         }
+
+        private RelayCommand _TakeOffWeapon;
+        public RelayCommand TakeOffWeapon
+        {
+            get
+            {
+                return _TakeOffWeapon ??
+                    (_TakeOffWeapon = new RelayCommand(obj =>
+                    {
+                        using (UnitOfWork T = new UnitOfWork())
+                        {
+                            T.GetFighters().UnEquip(SelectedFighter, SelectedWeapon.Id);
+                            UpdateLists();
+                        }
+                    }
+                    ));
+            }
+        }
+
+        private RelayCommand _TakeOffHelmet;
+        public RelayCommand TakeOffHelmet
+        {
+            get
+            {
+                return _TakeOffHelmet ??
+                    (_TakeOffHelmet = new RelayCommand(obj =>
+                    {
+                        using (UnitOfWork T = new UnitOfWork())
+                        {
+                            T.GetFighters().TakeOff(SelectedFighter, SelectedHelmet);
+                            UpdateLists();
+                        }
+                    }
+                    ));
+            }
+        }
+
+        private RelayCommand _TakeOffBodyArmor;
+        public RelayCommand TakeOffBodyArmor
+        {
+            get
+            {
+                return _TakeOffBodyArmor ??
+                    (_TakeOffBodyArmor = new RelayCommand(obj =>
+                    {
+                        using (UnitOfWork T = new UnitOfWork())
+                        {
+                            T.GetFighters().TakeOff(SelectedFighter, SelectedBodyArmor);
+                            UpdateLists();
+                        }
+                    }
+                    ));
+            }
+        }
+
+        private RelayCommand _TakeOffFeetArmor;
+        public RelayCommand TakeOffFeetArmor
+        {
+            get
+            {
+                return _TakeOffFeetArmor ??
+                    (_TakeOffFeetArmor = new RelayCommand(obj =>
+                    {
+                        using (UnitOfWork T = new UnitOfWork())
+                        {
+                            T.GetFighters().TakeOff(SelectedFighter, SelectedFeetArmor);
+                            UpdateLists();
+                        }
+                    }
+                    ));
+            }
+        }
+
+        #endregion
 
         public void AddNewHero(object sender, RoutedEventArgs e)
         {
@@ -373,15 +435,14 @@ namespace FightTheBoss
                    if(selectedFighter != null)
                     {
                         selectedFighter = T.GetFighters().Find(selectedFighter.FighterId);
-                        SelectedWeapon = T.GetWeapons().Find(selectedFighter.WeaponId) ?? (SelectedWeapon = new Bow() {Call = ""});
-                        SelectedHelmet = T.GetHelmets().Find(selectedFighter.HelmetId) ?? (SelectedHelmet = new Helmet() { Call = "" }); ;
-                        SelectedBodyArmor = T.GetBodyArmor().Find(selectedFighter.BodyArmorId) ?? (SelectedBodyArmor = new BodyArmor() { Call = "" }); ;
-                        SelectedFeetArmor = T.GetFeetArmor().Find(selectedFighter.FeetArmorId) ?? (SelectedFeetArmor = new FeetArmor() { Call = "" }); ;
+                        SelectedWeapon = T.GetWeapons().Find(selectedFighter.WeaponId) ?? (SelectedWeapon = new Bow() {Call = "Без оружия"});
+                        SelectedHelmet = T.GetHelmets().Find(selectedFighter.HelmetId) ?? (SelectedHelmet = new Helmet() { Call = "Без шлема" }); ;
+                        SelectedBodyArmor = T.GetBodyArmor().Find(selectedFighter.BodyArmorId) ?? (SelectedBodyArmor = new BodyArmor() { Call = "Без брони" }); ;
+                        SelectedFeetArmor = T.GetFeetArmor().Find(selectedFighter.FeetArmorId) ?? (SelectedFeetArmor = new FeetArmor() { Call = "Без ботинок" }); ;
                         HelmetName = SelectedHelmet.Call;
                         BodyArmorName = SelectedBodyArmor.Call;
                         FeetArmorName = SelectedFeetArmor.Call;
                         WeaponName = SelectedWeapon.Call;
-                        Damage = SelectedWeapon.damage;
                         OnPropertyChanged("SelectedFighter");
                     }
                 }
