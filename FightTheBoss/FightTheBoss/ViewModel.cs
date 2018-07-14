@@ -30,6 +30,20 @@ namespace FightTheBoss
             "Эльф"
         };
 
+        int damage; 
+        public int Damage
+        {
+            get
+            {
+                return damage;
+            }
+            set
+            {
+                damage = value;
+                OnPropertyChanged("Damage");
+            }
+        }
+
         string progress;
         public string Progress
         {
@@ -72,6 +86,7 @@ namespace FightTheBoss
                 OnPropertyChanged("BodyArmorName");
             }
         }
+
         string feetarmorname;
         public string FeetArmorName
         {
@@ -85,6 +100,7 @@ namespace FightTheBoss
                 OnPropertyChanged("FeetArmorName");
             }
         }
+
         string helmetname;
         public string HelmetName
         {
@@ -365,6 +381,7 @@ namespace FightTheBoss
                         BodyArmorName = SelectedBodyArmor.Call;
                         FeetArmorName = SelectedFeetArmor.Call;
                         WeaponName = SelectedWeapon.Call;
+                        Damage = SelectedWeapon.damage;
                         OnPropertyChanged("SelectedFighter");
                     }
                 }
