@@ -144,6 +144,45 @@ namespace FightTheBoss
             ArmorImageBlock.Content = armor.Call;
             ArmorImageBlock.Background = null;
             ArmorImageBlock.BorderBrush = Brushes.Black;
+            ToolTip hint = new ToolTip()
+            {
+                Width = 170,
+                Height = 100
+            };
+            StackPanel hintcontent = new StackPanel()
+            {
+                Orientation = Orientation.Horizontal
+            };
+            Canvas img = new Canvas()
+            {
+                Width = 70,
+                Height = 70,
+                Background = new SolidColorBrush(Colors.Red)
+            };
+            StackPanel quals = new StackPanel()
+            {
+                Orientation = Orientation.Vertical,
+
+            };
+            TextBlock text1 = new TextBlock()
+            {
+                Margin = new Thickness(5, 5, 5, 5),
+                Text = armor.Call,
+                FontSize = 16
+
+            };
+            TextBlock text2 = new TextBlock()
+            {
+                Margin = new Thickness(5, 5, 5, 5),
+                Text = "Броня: " + armor.ArmorPoints,
+                FontSize = 13
+            };
+            quals.Children.Add(text1);
+            quals.Children.Add(text2);
+            hintcontent.Children.Add(img);
+            hintcontent.Children.Add(quals);
+            hint.Content = hintcontent;
+            ArmorImageBlock.ToolTip = hint;
             //WeaponImageBlock.CommandParameter = 
             switch (armor.type)
             {
@@ -178,6 +217,45 @@ namespace FightTheBoss
             WeaponImageBlock.Background = null;
             WeaponImageBlock.BorderBrush = Brushes.Black;
             WeaponImageBlock.Name = "id" + weapon.Id;
+            ToolTip hint = new ToolTip()
+            {
+                Width = 170,
+                Height = 100
+            };
+            StackPanel hintcontent = new StackPanel()
+            {
+                Orientation = Orientation.Horizontal
+            };
+            Canvas img = new Canvas()
+            {
+                Width = 70,
+                Height = 70,
+                Background = new SolidColorBrush(Colors.Red)
+            };
+            StackPanel quals = new StackPanel()
+            {
+                Orientation = Orientation.Vertical,
+
+            };
+            TextBlock text1 = new TextBlock()
+            {
+                Margin = new Thickness(5, 5, 5, 5),
+                Text = weapon.Call,
+                FontSize  = 16
+
+            };
+            TextBlock text2 = new TextBlock()
+            {
+                Margin = new Thickness(5, 5, 5, 5),
+                Text = "Урон: " + weapon.damage,
+                FontSize = 13
+            };
+            quals.Children.Add(text1);
+            quals.Children.Add(text2);
+            hintcontent.Children.Add(img);
+            hintcontent.Children.Add(quals);
+            hint.Content = hintcontent;
+            WeaponImageBlock.ToolTip = hint;
             //WeaponImageBlock.CommandParameter = 
             WeaponImageBlock.Click += Chooseweapon;
 
