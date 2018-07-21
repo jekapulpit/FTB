@@ -36,7 +36,14 @@ namespace FightTheBoss.Skeleton.DataBaseContext
         }
         public Helmet Find(int? id)
         {
-            return _arm.Helmets.Find(id);
+            try
+            {
+                return _arm.Helmets.Find(id);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
         }
 
         public void Dispose() { }

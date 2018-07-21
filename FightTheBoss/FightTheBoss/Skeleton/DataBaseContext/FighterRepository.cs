@@ -35,7 +35,14 @@ namespace FightTheBoss.Skeleton.DataBaseContext
         }
         public Fighter Find(int? id)
         {
-            return _fight.Fighters.Find(id);
+            try
+            {
+                return _fight.Fighters.Find(id);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
         }
         public void Remove(Fighter fighter)
         {
@@ -56,9 +63,11 @@ namespace FightTheBoss.Skeleton.DataBaseContext
                 if (Fighter.WeaponId != null)
                 {
                     Weapon Weapon1 = _fight.Weapons.Find(Fighter.WeaponId);
+                    Fighter.Damage -= Weapon1.damage;
                     Weapon1.IsWearing = false;
                 }
                 Fighter.WeaponId = Weapon.Id;
+                Fighter.Damage += Weapon.damage;
                 Weapon.IsWearing = true;
             }
             catch (NullReferenceException)
@@ -172,12 +181,13 @@ namespace FightTheBoss.Skeleton.DataBaseContext
             }
             _fight.SaveChanges();
         }
-        public void UnEquip(Fighter fighter, int id)
+        public void UnEquip(Fighter fighter, int? id)
         {
             try
             {
                 Fighter Fighter = _fight.Fighters.Find(fighter.FighterId);
                 Weapon Weapon1 = _fight.Weapons.Find(Fighter.WeaponId);
+                Fighter.Damage -= Weapon1.damage;
                 Weapon1.IsWearing = false;
                 Fighter.WeaponId = null;
             }

@@ -13,7 +13,7 @@ namespace FightTheBoss.Races
 
         {
             BaseArmor = 2;
-
+            Damage = 3;
             Armor = 1;
             Health = 25;
         }

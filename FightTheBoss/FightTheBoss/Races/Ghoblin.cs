@@ -13,6 +13,7 @@ namespace FightTheBoss.Races
         public Ghoblin(string name, string Race) : base(name, "Гоблин")
         {
             Armor = 3;
+            Damage = 2;
             BaseArmor = 3;
             Health = 20;
         }

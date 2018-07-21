@@ -15,7 +15,7 @@
         <Canvas x:Name="Herous"  Grid.Column="1">
             <TextBlock Padding="15" TextAlignment="Center" Text="Список Ваших персонажей" Height="60" Canvas.Top="0" Canvas.Left="0" Width="{Binding ElementName=Herous
                                                     , Path=ActualWidth}" FontFamily="Book Antiqua" FontSize="22"/>
-            <ListBox Height="270" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Fighters}" SelectedItem="{Binding SelectedFighter}" Canvas.Top="60"  Width="{Binding ElementName=Herous, Path=ActualWidth}" Canvas.Bottom="90"  BorderBrush="{x:Null}">
+            <ListBox Height="270" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Fighters, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedFighter}" Canvas.Top="60"  Width="{Binding ElementName=Herous, Path=ActualWidth}" Canvas.Bottom="90"  BorderBrush="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="5">
@@ -62,6 +62,10 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Броня: "></TextBlock>
                         <TextBlock Text="{Binding SelectedFighter.Armor}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Урон: "></TextBlock>
+                        <TextBlock Text="{Binding SelectedFighter.Damage}"></TextBlock>
                     </StackPanel>
                 </StackPanel>
                 <Canvas Width="190" Height="200" Grid.Column="0">

@@ -35,7 +35,14 @@ namespace FightTheBoss.Skeleton.DataBaseContext
         }
         public BodyArmor Find(int? id)
         {
-            return _arm.BodyArmors.Find(id);
+            try
+            {
+                return _arm.BodyArmors.Find(id);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
         }
 
         public void Dispose() { }

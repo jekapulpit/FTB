@@ -241,9 +241,20 @@ namespace FightTheBoss
                         {
                             using (UnitOfWork T = new UnitOfWork())
                             {
+                                T.GetFighters().UnEquip(SelectedFighter, SelectedFighter.WeaponId);
+                                T.GetFighters().TakeOff(SelectedFighter, SelectedFeetArmor);
+                                T.GetFighters().TakeOff(SelectedFighter, SelectedBodyArmor);
+                                T.GetFighters().TakeOff(SelectedFighter, SelectedHelmet);
                                 T.GetFighters().Remove(SelectedFighter);
                             }
-                            Fighters.Remove(SelectedFighter);
+                            for (int i = 0; i < Fighters.Count(); i++)
+                            {
+                                if (Fighters[i].FighterId == SelectedFighter.FighterId)
+                                {
+                                    Fighters.Remove(Fighters[i]);
+                                    break;
+                                }
+                            }
                             if (Fighters.Count() != 0) SelectedFighter = Fighters[0];
                         }
                     },
@@ -394,7 +405,7 @@ namespace FightTheBoss
                 }
                 NewHero.Username = CurrentUser.Username;
                 Fighters.Insert(0, NewHero);
-                SelectedFighter = NewHero;
+                SelectedFighter = Fighters[0];
                 using (UnitOfWork T = new UnitOfWork())
                 {
                     T.GetFighters().Add(NewHero);
@@ -435,10 +446,10 @@ namespace FightTheBoss
                    if(selectedFighter != null)
                     {
                         selectedFighter = T.GetFighters().Find(selectedFighter.FighterId);
-                        SelectedWeapon = T.GetWeapons().Find(selectedFighter.WeaponId) ?? (SelectedWeapon = new Bow() {Call = "Без оружия"});
-                        SelectedHelmet = T.GetHelmets().Find(selectedFighter.HelmetId) ?? (SelectedHelmet = new Helmet() { Call = "Без шлема" }); ;
-                        SelectedBodyArmor = T.GetBodyArmor().Find(selectedFighter.BodyArmorId) ?? (SelectedBodyArmor = new BodyArmor() { Call = "Без брони" }); ;
-                        SelectedFeetArmor = T.GetFeetArmor().Find(selectedFighter.FeetArmorId) ?? (SelectedFeetArmor = new FeetArmor() { Call = "Без ботинок" }); ;
+                        SelectedWeapon = (T.GetWeapons().Find(selectedFighter.WeaponId)) ?? (SelectedWeapon = new Bow() {Call = "Без оружия"});
+                        SelectedHelmet = (T.GetHelmets().Find(selectedFighter.HelmetId)) ?? (SelectedHelmet = new Helmet() { Call = "Без шлема" }); 
+                        SelectedBodyArmor = (T.GetBodyArmor().Find(selectedFighter.BodyArmorId)) ?? (SelectedBodyArmor = new BodyArmor() { Call = "Без брони" }); 
+                        SelectedFeetArmor = (T.GetFeetArmor().Find(selectedFighter.FeetArmorId)) ?? (SelectedFeetArmor = new FeetArmor() { Call = "Без ботинок" }); 
                         HelmetName = SelectedHelmet.Call;
                         BodyArmorName = SelectedBodyArmor.Call;
                         FeetArmorName = SelectedFeetArmor.Call;
@@ -457,10 +468,15 @@ namespace FightTheBoss
                     //T.FeetArmors.Add(new FeetArmor() { Call = "nog2", Username = CurrentUser.Username });
                     //T.SaveChanges();
             }
+            catch (NullReferenceException)
+            {
+
+            }
             catch (Exception Ex)
             {
                 MessageBox.Show(Ex.ToString());
             }
+
             
         }
 

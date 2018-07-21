@@ -34,7 +34,15 @@ namespace FightTheBoss.Skeleton.DataBaseContext
         }
         public Weapon Find(int? id)
         {
-            return _weap.Weapons.Find(id);
+            try
+            {
+                return _weap.Weapons.Find(id);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+
         }
 
         public void Dispose() { }

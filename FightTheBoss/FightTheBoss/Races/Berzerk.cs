@@ -13,7 +13,7 @@ namespace FightTheBoss.Races
         {
             Armor = 5;
             BaseArmor = 5;
-
+            Damage = 5;
             Health = 40;
         }
         public Berzerk() {
